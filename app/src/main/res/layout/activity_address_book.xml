@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="1.0">
 
         <TextView
             android:id="@+id/textView"
@@ -23,30 +24,30 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-        android:id="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
         <Button
-            android:id="@+id/btn_recent"
+            android:id="@+id/btn_keypad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="키패드" />
 
         <Button
-            android:id="@+id/btn_addressbook"
+            android:id="@+id/btn_recent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="최근기록" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -54,17 +55,20 @@
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/addressbook_viewpager"
+        android:id="@+id/vp_addressbook"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.0">
 
     </android.support.v4.view.ViewPager>
 
