@@ -1,6 +1,8 @@
 package com.android_dev.clucle.addressbook.view;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.view.SplashActivity;
@@ -23,6 +26,7 @@ import butterknife.OnClick;
 public class AddressBookActivity extends AppCompatActivity {
 
     ViewPager vp_addressbook;
+    LinearLayout llayout_adressbook_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,53 @@ public class AddressBookActivity extends AppCompatActivity {
         btn_keypad.setTag(0);
         btn_recent.setTag(1);
         btn_address.setTag(2);
+        btn_keypad.setSelected(true);
+
+        llayout_adressbook_btn = (LinearLayout) findViewById(R.id.llayout_adressbook_btn);
+
+        vp_addressbook.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                int i = 0;
+                while (i<3)
+                {
+                    if (position == i) {
+                        llayout_adressbook_btn.findViewWithTag(i).setSelected(true);
+                    } else {
+                        llayout_adressbook_btn.findViewWithTag(i).setSelected(false);
+                    }
+                    i++;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     View.OnClickListener movePageListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int tag = (int) v.getTag();
+
+            int i = 0;
+            while (i<3)
+            {
+                if (tag == i) {
+                    llayout_adressbook_btn.findViewWithTag(i).setSelected(true);
+                } else {
+                    llayout_adressbook_btn.findViewWithTag(i).setSelected(false);
+                }
+                i++;
+            }
+
             vp_addressbook.setCurrentItem(tag);
         }
     };
