@@ -24,7 +24,7 @@ public class AddressBookKeypadFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        RelativeLayout layout = (RelativeLayout)
+        ConstraintLayout layout = (ConstraintLayout)
                 inflater.inflate(R.layout.fragment_addressbook_keypad, container, false);
         return layout;
     }

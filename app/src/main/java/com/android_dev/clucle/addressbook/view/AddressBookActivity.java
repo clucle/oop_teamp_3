@@ -45,6 +45,7 @@ public class AddressBookActivity extends AppCompatActivity {
 
         vp_addressbook = (ViewPager) findViewById(R.id.vp_addressbook);
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        vp_addressbook.setOffscreenPageLimit(2);
         vp_addressbook.setCurrentItem(0);
 
         btn_keypad.setOnClickListener(movePageListener);

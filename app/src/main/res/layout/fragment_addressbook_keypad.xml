@@ -1,7 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
+    android:background="#FFFFFF"
     >
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#EAEAEA"
+        android:id="@+id/linearLayout"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="146dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:id="@+id/linearLayout2"
+        android:background="#E0E0E0"
+        ></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_keypad_num1"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/btn_keypad_num2"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/btn_keypad_num3"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="3" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_keypad_num4"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/btn_keypad_num5"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="5" />
+
+            <Button
+                android:id="@+id/btn_keypad_num6"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_keypad_num7"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/btn_keypad_num8"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="8" />
+
+            <Button
+                android:id="@+id/btn_keypad_num9"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_keypad_star"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="*" />
+
+            <Button
+                android:id="@+id/btn_keypad_num0"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/btn_keypad_shap"
+                android:background="@drawable/keypad_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="#" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:orientation="vertical"
+        android:background="#FAFAFA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/linearLayout3"></LinearLayout>
+</android.support.constraint.ConstraintLayout>
