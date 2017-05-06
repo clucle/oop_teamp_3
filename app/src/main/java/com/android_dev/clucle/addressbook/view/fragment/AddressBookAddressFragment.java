@@ -1,4 +1,4 @@
-package com.android_dev.clucle.addressbook.view;
+package com.android_dev.clucle.addressbook.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.android_dev.clucle.addressbook.R;
 
-public class AddressBookKeypadFragment extends Fragment{
-    public AddressBookKeypadFragment() {
+public class AddressBookAddressFragment extends Fragment {
+    public AddressBookAddressFragment() {
         super();
     }
 
@@ -25,7 +25,7 @@ public class AddressBookKeypadFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         ConstraintLayout layout = (ConstraintLayout)
-                inflater.inflate(R.layout.fragment_addressbook_keypad, container, false);
+                inflater.inflate(R.layout.fragment_addressbook_address, container, false);
         return layout;
     }
 }

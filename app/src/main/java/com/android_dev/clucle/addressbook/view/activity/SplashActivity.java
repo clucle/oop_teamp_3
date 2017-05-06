@@ -1,4 +1,4 @@
-package com.android_dev.clucle.addressbook.view;
+package com.android_dev.clucle.addressbook.view.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
