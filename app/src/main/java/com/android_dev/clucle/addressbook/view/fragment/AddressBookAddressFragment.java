@@ -8,20 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.android_dev.clucle.addressbook.R;
-import com.android_dev.clucle.addressbook.view.adapter.AddressBookAddressListAdapter;
-import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
+import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 
-import java.util.ArrayList;
 
-public class AddressBookAddressFragment extends Fragment {
+public class AddressBookAddressFragment extends Fragment implements AddressBookAddressPresenter.View{
 
-    ListView listView;
-    AddressBookAddressListAdapter adapter;
+    private ListView listView;
+    private AddressBookAddressPresenter addressPresenter;
 
-    ArrayList<AddressBookAddressItem> itemList = new ArrayList<AddressBookAddressItem>();
 
     public AddressBookAddressFragment() {
         super();
@@ -30,10 +26,6 @@ public class AddressBookAddressFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        adapter = new AddressBookAddressListAdapter(itemList);
-
-
     }
 
     @Nullable
@@ -42,12 +34,15 @@ public class AddressBookAddressFragment extends Fragment {
         ConstraintLayout layout = (ConstraintLayout)
                 inflater.inflate(R.layout.fragment_addressbook_address, container, false);
 
-        listView = (ListView) layout.findViewById(R.id.listview_address);
-        listView.setAdapter(adapter);
+        addressPresenter = new AddressBookAddressPresenter(this);
 
-        adapter.addItem(1, "AA");
-        adapter.addItem(2, "BB");
-        adapter.removeItem(1);
+        listView = (ListView) layout.findViewById(R.id.listview_address);
+        listView.setAdapter(addressPresenter.getAdapter());
+
+        addressPresenter.addItem(1, "AA");
+
+        //adapter.addItem(2, "BB");
+        //adapter.removeItem(1);
 
         return layout;
     }
