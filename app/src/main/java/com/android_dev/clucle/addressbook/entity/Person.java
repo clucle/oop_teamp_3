@@ -18,6 +18,20 @@ public class Person {
         return sName;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        Person other = (Person) obj;
+        if (!sName.equals(other.getsName())) return false;
+        if (!sNumber.equals(other.getsNumber())) return false;
+        if (!sClub.equals(other.getsClub())) return false;
+        if (!sEmail.equals(other.getsEmail())) return false;
+
+        return true;
+    }
+
     public String getsName() { return sName; }
     public String getsNumber() { return sName; }
     public String getsClub() { return sName; }
