@@ -117,7 +117,9 @@ public class AddressBookActivity extends AppCompatActivity {
                 case 1:
                     return new AddressBookRecentFragment();
                 case 2:
-                    return new AddressBookAddressFragment();
+                    AddressBookAddressFragment addressFragment = new AddressBookAddressFragment();
+                    addressFragment.onAttach(getApplicationContext());
+                    return addressFragment;
                 default:
                     return null;
             }
