@@ -66,6 +66,14 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
 
         addressItemList.add(item);
     }
+
+    public void removeItem(int index) {
+
+        addressItemList.remove(index);
+
+        notifyDataSetChanged();
+    }
+
     public ArrayList<AddressBookAddressItem> getItemList() {
         return addressItemList;
     }

@@ -47,6 +47,7 @@ public class AddressBookAddressFragment extends Fragment {
 
         adapter.addItem(1, "AA");
         adapter.addItem(2, "BB");
+        adapter.removeItem(1);
 
         return layout;
     }
