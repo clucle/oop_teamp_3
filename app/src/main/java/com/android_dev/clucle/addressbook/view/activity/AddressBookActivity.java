@@ -1,6 +1,5 @@
 package com.android_dev.clucle.addressbook.view.activity;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,22 +11,23 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.presenter.AddressBookPresenter;
 import com.android_dev.clucle.addressbook.view.fragment.AddressBookAddressFragment;
 import com.android_dev.clucle.addressbook.view.fragment.AddressBookKeypadFragment;
 import com.android_dev.clucle.addressbook.view.fragment.AddressBookRecentFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-
-public class AddressBookActivity extends AppCompatActivity {
+public class AddressBookActivity extends AppCompatActivity implements AddressBookPresenter.View{
 
     @BindView(R.id.vp_addressbook) ViewPager vp_addressbook;
     @BindView(R.id.llayout_adressbook_btn) LinearLayout llayout_adressbook_btn;
     @BindView(R.id.btn_keypad) Button btn_keypad;
     @BindView(R.id.btn_recent) Button btn_recent;
     @BindView(R.id.btn_address) Button btn_address;
+
+    AddressBookPresenter addressBookPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,10 @@ public class AddressBookActivity extends AppCompatActivity {
 
         /* Show Logo Screen */
         // startActivity(new Intent(this, SplashActivity.class));
+
+        /* accept Presenter */
+        addressBookPresenter = new AddressBookPresenter(this);
+        addressBookPresenter.setContext(getApplicationContext());
 
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vp_addressbook.setOffscreenPageLimit(2);
@@ -115,9 +119,7 @@ public class AddressBookActivity extends AppCompatActivity {
                 case 1:
                     return new AddressBookRecentFragment();
                 case 2:
-                    AddressBookAddressFragment addressFragment = new AddressBookAddressFragment();
-                    addressFragment.onAttach(getApplicationContext());
-                    return addressFragment;
+                    return new AddressBookAddressFragment();
                 default:
                     return null;
             }
