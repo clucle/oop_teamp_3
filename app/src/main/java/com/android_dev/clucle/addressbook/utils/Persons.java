@@ -9,7 +9,7 @@ public class Persons {
     private static ArrayList<Person> persons = new ArrayList<>();
 
     protected Persons() {
-        //
+        // for instance
     }
 
     public static Persons getInstance() {
@@ -19,11 +19,11 @@ public class Persons {
         return instance;
     }
 
-    public void addPerson(String name, String number, String club, String email) {
-        persons.add(new Person(name, number, club, email));
+    public void addPerson(Person person) {
+        persons.add(person);
     }
 
-    public void delPerson(String name, String number, String club, String email) {
-        persons.remove(new Person(name, number, club, email));
+    public void delPerson(Person person) {
+        persons.remove(person);
     }
 }

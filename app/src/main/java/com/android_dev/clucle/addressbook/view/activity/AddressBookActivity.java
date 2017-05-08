@@ -43,6 +43,7 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
         /* accept Presenter */
         addressBookPresenter = new AddressBookPresenter(this);
         addressBookPresenter.setContext(getApplicationContext());
+        addressBookPresenter.loadDB(); // Load Address
 
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vp_addressbook.setOffscreenPageLimit(2);
