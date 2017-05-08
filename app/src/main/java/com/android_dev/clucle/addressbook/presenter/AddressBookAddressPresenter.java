@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.android_dev.clucle.addressbook.data.SQLiteAddress;
+import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.view.adapter.AddressBookAddressListAdapter;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
@@ -41,7 +42,7 @@ public class AddressBookAddressPresenter {
     public void loadDB() {
 
         DB = new SQLiteAddress(context, "addressTest.db", null, 4);
-
+        //Persons.getInstance().addPerson(new Person(a,a,,sd,as,d);
         /*
         DB.insert("a5", "b2", "c2", "d2");
 
