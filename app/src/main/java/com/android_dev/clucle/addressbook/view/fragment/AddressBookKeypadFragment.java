@@ -58,11 +58,12 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
         text_show_number.setText(text);
     }
 
+    /* click keypad */
     @OnClick({R.id.btn_keypad_num1, R.id.btn_keypad_num2, R.id.btn_keypad_num3,
             R.id.btn_keypad_num4, R.id.btn_keypad_num5, R.id.btn_keypad_num6,
             R.id.btn_keypad_num7, R.id.btn_keypad_num8, R.id.btn_keypad_num9,
             R.id.btn_keypad_star, R.id.btn_keypad_num0, R.id.btn_keypad_shap})
-    public void onKeyClick(View view) {
+    public void clickKey(View view) {
         switch (view.getId()) {
             case R.id.btn_keypad_num1:
                 keypadPresenter.addText("1");
@@ -100,6 +101,22 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
             case R.id.btn_keypad_shap:
                 keypadPresenter.delText();
                 break;
+        }
+    }
+    /* click bottom tool bar */
+    @OnClick({R.id.btn_keypad_call, R.id.btn_keypad_sms, R.id.btn_keypad_erase})
+    public void clickTool(View view) {
+        switch (view.getId()) {
+            case R.id.btn_keypad_call:
+                // pass
+                break;
+            case R.id.btn_keypad_sms:
+                // pass
+                break;
+            case R.id.btn_keypad_erase:
+                keypadPresenter.eraseText();
+                break;
+
         }
     }
 

@@ -22,6 +22,12 @@ public class AddressBookKeypadPresenter {
         keyText += text;
         setFormNumber();
     }
+    public void eraseText() {
+        if (keyText.length() > 0) {
+            keyText = keyText.substring(0, keyText.length() - 1);
+            setFormNumber();
+        }
+    }
     public void delText() {
         keyText = "";
         setFormNumber();

@@ -211,7 +211,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/linearLayout3">
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btn_keypad_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -225,7 +225,7 @@
             android:layout_weight="1"/>
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/btn_keypad_sms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -237,7 +237,7 @@
             android:layout_weight="1"/>
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/btn_keypad_erase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
