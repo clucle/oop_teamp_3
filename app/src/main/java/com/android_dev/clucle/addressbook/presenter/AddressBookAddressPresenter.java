@@ -42,6 +42,8 @@ public class AddressBookAddressPresenter {
         for (int index_person = 0; index_person < persons.size(); index_person++) {
             addItem(index_person % 10, persons.get(index_person).getsName());
         }
+        // addItem시 정렬
+        // addItem(3, "이정렬");
     }
 
 }

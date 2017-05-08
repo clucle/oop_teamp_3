@@ -1,6 +1,7 @@
 package com.android_dev.clucle.addressbook.view.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AddressBookAddressListAdapter extends BaseAdapter {
     private ArrayList<AddressBookAddressItem> addressItemList;
@@ -65,6 +68,24 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
         item.setShowText(text);
 
         addressItemList.add(item);
+        sortItem();
+    }
+
+    public void sortItem() {
+        Comparator<AddressBookAddressItem> order = new Comparator<AddressBookAddressItem>() {
+            @Override
+            public int compare(AddressBookAddressItem o1, AddressBookAddressItem o2) {
+                int ret;
+                if (o1.getShowText().compareTo(o2.getShowText()) < 0)
+                    ret = -1;
+                else
+                    ret = 1;
+                return ret;
+            }
+        };
+        Collections.sort(addressItemList, order);
+        notifyDataSetChanged();
+
     }
 
     public void removeItem(int index) {
