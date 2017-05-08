@@ -40,7 +40,8 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         listView = (ListView) view.findViewById(R.id.listview_address);
         listView.setAdapter(addressPresenter.getAdapter());
 
-        addressPresenter.addItem(1, "AA");
+        addressPresenter.loadItem();
+        //addressPresenter.addItem(1, "AA");
 
         return view;
     }

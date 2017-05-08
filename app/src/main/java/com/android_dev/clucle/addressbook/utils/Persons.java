@@ -26,4 +26,8 @@ public class Persons {
     public void delPerson(Person person) {
         persons.remove(person);
     }
+
+    public ArrayList<Person> getPersons() {
+        return persons;
+    }
 }
