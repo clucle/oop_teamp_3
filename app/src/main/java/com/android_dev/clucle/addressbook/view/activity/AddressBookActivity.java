@@ -33,7 +33,7 @@ public class AddressBookActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         /* Show Logo Screen */
-        startActivity(new Intent(this, SplashActivity.class));
+        // startActivity(new Intent(this, SplashActivity.class));
 
         Button btn_keypad = (Button)findViewById(R.id.btn_keypad);
         Button btn_recent = (Button)findViewById(R.id.btn_recent);
