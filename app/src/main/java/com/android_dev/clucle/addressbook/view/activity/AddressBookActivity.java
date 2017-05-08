@@ -16,13 +16,18 @@ import com.android_dev.clucle.addressbook.view.fragment.AddressBookAddressFragme
 import com.android_dev.clucle.addressbook.view.fragment.AddressBookKeypadFragment;
 import com.android_dev.clucle.addressbook.view.fragment.AddressBookRecentFragment;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class AddressBookActivity extends AppCompatActivity {
 
-    ViewPager vp_addressbook;
-    LinearLayout llayout_adressbook_btn;
+    @BindView(R.id.vp_addressbook) ViewPager vp_addressbook;
+    @BindView(R.id.llayout_adressbook_btn) LinearLayout llayout_adressbook_btn;
+    @BindView(R.id.btn_keypad) Button btn_keypad;
+    @BindView(R.id.btn_recent) Button btn_recent;
+    @BindView(R.id.btn_address) Button btn_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +40,6 @@ public class AddressBookActivity extends AppCompatActivity {
         /* Show Logo Screen */
         // startActivity(new Intent(this, SplashActivity.class));
 
-        Button btn_keypad = (Button)findViewById(R.id.btn_keypad);
-        Button btn_recent = (Button)findViewById(R.id.btn_recent);
-        Button btn_address = (Button)findViewById(R.id.btn_address);
-
-        vp_addressbook = (ViewPager) findViewById(R.id.vp_addressbook);
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vp_addressbook.setOffscreenPageLimit(2);
         vp_addressbook.setCurrentItem(0);
@@ -52,8 +52,6 @@ public class AddressBookActivity extends AppCompatActivity {
         btn_recent.setTag(1);
         btn_address.setTag(2);
         btn_keypad.setSelected(true);
-
-        llayout_adressbook_btn = (LinearLayout) findViewById(R.id.llayout_adressbook_btn);
 
         vp_addressbook.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
