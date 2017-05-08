@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/text_show_number"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -204,10 +204,46 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="#FAFAFA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/linearLayout3"></LinearLayout>
+        android:id="@+id/linearLayout3">
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="24sp"
+            android:layout_marginEnd="0sp"
+            app:srcCompat="@drawable/img_btn_call" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/img_btn_sms" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="0sp"
+            android:layout_marginEnd="24sp"
+            app:srcCompat="@drawable/img_btn_remove_text" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
