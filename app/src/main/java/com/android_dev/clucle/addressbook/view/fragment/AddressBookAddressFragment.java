@@ -20,6 +20,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     private ListView listView;
     private AddressBookAddressPresenter addressPresenter;
 
+
     public AddressBookAddressFragment() {
         super();
     }
@@ -32,8 +33,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = (ConstraintLayout)
-                inflater.inflate(R.layout.fragment_addressbook_address, container, false);
+        View view = inflater.inflate(R.layout.fragment_addressbook_address, container, false);
 
         addressPresenter = new AddressBookAddressPresenter(this);
 
@@ -41,8 +41,16 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         listView.setAdapter(addressPresenter.getAdapter());
 
         addressPresenter.loadItem();
-        //addressPresenter.addItem(1, "AA");
+        addressPresenter.readyRemoveItem(true);
 
         return view;
+    }
+
+    @Override
+    public void showCheckItemMode(Boolean isCheckMode) {
+        //Log.d("[user]","checkItemMode");
+        //if (isCheckMode) listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        //else listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+
     }
 }

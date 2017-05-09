@@ -1,8 +1,5 @@
 package com.android_dev.clucle.addressbook.presenter;
 
-import android.content.Context;
-
-import com.android_dev.clucle.addressbook.data.SQLiteAddress;
 import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.view.adapter.AddressBookAddressListAdapter;
@@ -17,11 +14,11 @@ public class AddressBookAddressPresenter {
 
     /* ListView Setting */
     private AddressBookAddressListAdapter adapter;
-    private ArrayList<AddressBookAddressItem> itemList = new ArrayList<AddressBookAddressItem>();
+    private ArrayList<AddressBookAddressItem> itemList = new ArrayList<>();
 
     /* View Method */
     public interface View {
-
+        void showCheckItemMode(Boolean isCheckMode);
     }
 
     /* Presenter Method */
@@ -34,9 +31,7 @@ public class AddressBookAddressPresenter {
     public AddressBookAddressListAdapter getAdapter() {
         return adapter;
     }
-    public void addItem(int numImg, String text) {
-        adapter.addItem(numImg, text);
-    }
+
     public void loadItem() {
         ArrayList<Person> persons = Persons.getInstance().getPersons();
         for (int index_person = 0; index_person < persons.size(); index_person++) {
@@ -44,6 +39,13 @@ public class AddressBookAddressPresenter {
         }
         // addItem시 정렬
         // addItem(3, "이정렬");
+    }
+    public void addItem(int numImg, String text) {
+        adapter.addItem(numImg, text);
+    }
+    public void readyRemoveItem(Boolean isCheckMode) {
+        view.showCheckItemMode(isCheckMode);
+        adapter.notifyDataSetChanged();
     }
 
 }

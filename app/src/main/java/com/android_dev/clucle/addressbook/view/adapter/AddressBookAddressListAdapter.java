@@ -20,7 +20,7 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
 
     public AddressBookAddressListAdapter(ArrayList<AddressBookAddressItem> itemList) {
         if (itemList == null) {
-            addressItemList = new ArrayList<AddressBookAddressItem>();
+            addressItemList = new ArrayList<>();
         } else {
             addressItemList = itemList;
         }
@@ -43,7 +43,6 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
         final Context context = parent.getContext();
 
         if (convertView == null) {
