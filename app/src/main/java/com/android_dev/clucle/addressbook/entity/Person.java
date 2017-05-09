@@ -33,8 +33,8 @@ public class Person {
     }
 
     public String getsName() { return sName; }
-    public String getsNumber() { return sName; }
-    public String getsClub() { return sName; }
-    public String getsEmail() { return sName; }
+    public String getsNumber() { return sNumber; }
+    public String getsClub() { return sClub; }
+    public String getsEmail() { return sEmail; }
 
 }

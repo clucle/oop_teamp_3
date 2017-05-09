@@ -1,7 +1,11 @@
 package com.android_dev.clucle.addressbook.presenter;
 
+import android.util.Log;
+
 import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.utils.Persons;
+import com.android_dev.clucle.addressbook.utils.SearchByName;
+import com.android_dev.clucle.addressbook.utils.SearchByNumber;
 import com.android_dev.clucle.addressbook.view.adapter.AddressBookAddressListAdapter;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
@@ -48,8 +52,27 @@ public class AddressBookAddressPresenter {
         }
     }
 
-    public void loadSearchedItem() {
+    public void loadSearchedItem(String searchedText) {
         ArrayList<Person> persons = Persons.getInstance().getPersons();
+
+        for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
+            if (SearchByName.search(persons.get(iSearch).getsName(), searchedText))
+                addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
+        }
+        if (searchedText.substring(0, 1).equals("0")) {
+            searchedText = searchedText.substring(1);
+            for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
+                if (SearchByNumber.search(persons.get(iSearch).getsNumber(), searchedText))
+                    addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
+            }
+        } else {
+            for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
+                if (SearchByNumber.search(persons.get(iSearch).getsNumber(), searchedText))
+                    addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
+            }
+        }
+
+
     }
 
     public void addItem(int numImg, String text) {
@@ -60,7 +83,6 @@ public class AddressBookAddressPresenter {
         view.showCheckItemMode(isCheckMode);
         adapter.notifyDataSetChanged();
     }
-
 
     public void addSearchedItem(int numImg, String text) {
         adapterSearched.addItem(numImg, text);
@@ -75,7 +97,7 @@ public class AddressBookAddressPresenter {
             view.showSearchedItem(false);
         } else {
             itemSearchedList.clear();
-            loadSearchedItem();
+            loadSearchedItem(nonBlankText);
             adapterSearched.notifyDataSetChanged();
             view.showSearchedItem(true);
         }
