@@ -1,11 +1,9 @@
 package com.android_dev.clucle.addressbook.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,7 @@ import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 
@@ -58,12 +57,25 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         unbinder.unbind();
     }
 
+    /* ========================= View ===================== */
     @Override
     public void showCheckItemMode(Boolean isCheckMode) {
         //Log.d("[user]","checkItemMode");
         //if (isCheckMode) listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         //else listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
+    }
+
+    @Override
+    public void showSearchedItem(Boolean isSearched) {
+        if (isSearched) listView.setAdapter(addressPresenter.getAdapterSearched());
+        else listView.setAdapter(addressPresenter.getAdapter());
+    }
+    /* ==================================================== */
+
+    @OnTextChanged(R.id.editText_address_search)
+    protected void handleTextChange(Editable editable) {
+        addressPresenter.searchAddress(editable.toString());
     }
 
     @OnClick({R.id.btn_add_person, R.id.btn_del_person})
