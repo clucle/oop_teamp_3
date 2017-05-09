@@ -67,7 +67,8 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
                         int getPosition = (Integer) v.getTag();
                         addressItemList.get(getPosition).setSelected(true);
                     } else {
-
+                        int getPosition = (Integer) v.getTag();
+                        addressItemList.get(getPosition).setSelected(false);
                     }
                 }
             });
