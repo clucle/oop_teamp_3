@@ -1,5 +1,6 @@
 package com.android_dev.clucle.addressbook.view.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -39,7 +40,7 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
 
         /* Show Logo Screen */
         // startActivity(new Intent(this, SplashActivity.class));
-
+        startActivity(new Intent(this, AddModifyAddressActivity.class));
         /* accept Presenter */
         addressBookPresenter = new AddressBookPresenter(this);
         addressBookPresenter.setContext(getApplicationContext());
