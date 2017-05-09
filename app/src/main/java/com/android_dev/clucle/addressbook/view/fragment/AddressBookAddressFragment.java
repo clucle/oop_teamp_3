@@ -14,12 +14,18 @@ import android.widget.ListView;
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 
 public class AddressBookAddressFragment extends Fragment implements AddressBookAddressPresenter.View{
 
-    private ListView listView;
+    private Unbinder unbinder;
     private AddressBookAddressPresenter addressPresenter;
 
+    @BindView(R.id.listview_address) ListView listView;
 
     public AddressBookAddressFragment() {
         super();
@@ -36,8 +42,8 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         View view = inflater.inflate(R.layout.fragment_addressbook_address, container, false);
 
         addressPresenter = new AddressBookAddressPresenter(this);
+        unbinder = ButterKnife.bind(this, view);
 
-        listView = (ListView) view.findViewById(R.id.listview_address);
         listView.setAdapter(addressPresenter.getAdapter());
 
         addressPresenter.loadItem();
@@ -47,10 +53,30 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
     public void showCheckItemMode(Boolean isCheckMode) {
         //Log.d("[user]","checkItemMode");
         //if (isCheckMode) listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         //else listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
 
+    }
+
+    @OnClick({R.id.btn_add_person, R.id.btn_del_person})
+    public void clickAddressToolbarBtn(View view) {
+        switch (view.getId()) {
+            case R.id.btn_add_person:
+                // pass
+                // Log.d("[dujin]", "add_person");
+                break;
+            case R.id.btn_del_person:
+                // pass
+                // Log.d("[dujin]", "del_person");
+                break;
+        }
     }
 }
