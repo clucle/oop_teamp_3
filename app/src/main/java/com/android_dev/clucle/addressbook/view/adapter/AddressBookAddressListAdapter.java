@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
@@ -24,6 +25,11 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
         } else {
             addressItemList = itemList;
         }
+    }
+
+    static class ViewHolder {
+        protected TextView text_id;
+        protected CheckBox checkBox;
     }
 
     @Override
@@ -45,17 +51,41 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context context = parent.getContext();
 
+        ViewHolder viewHolder = null;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_address_item, parent, false);
+
+            viewHolder = new ViewHolder();
+            viewHolder.text_id = (TextView) convertView.findViewById(R.id.text_id_address);
+            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox_address);
+            viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (((CheckBox) v).isChecked()) {
+                        int getPosition = (Integer) v.getTag();
+                        addressItemList.get(getPosition).setSelected(true);
+                    } else {
+
+                    }
+                }
+            });
+
+            convertView.setTag(viewHolder);
+            convertView.setTag(R.id.text_id_address, viewHolder.text_id);
+            convertView.setTag(R.id.checkBox_address, viewHolder.checkBox);
+
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TextView userId = (TextView) convertView.findViewById(R.id.text_id_address);
 
         AddressBookAddressItem addressBookAddressItem = addressItemList.get(position);
 
-        userId.setText(addressBookAddressItem.getShowText());
+        viewHolder.checkBox.setTag(position);
+        viewHolder.text_id.setText(addressBookAddressItem.getShowText());
+        viewHolder.checkBox.setChecked(addressBookAddressItem.isSelected());
 
         return convertView;
     }
