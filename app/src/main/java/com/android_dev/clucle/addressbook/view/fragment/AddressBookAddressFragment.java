@@ -1,5 +1,6 @@
 package com.android_dev.clucle.addressbook.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
+import com.android_dev.clucle.addressbook.view.activity.AddModifyAddressActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,8 +84,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     public void clickAddressToolbarBtn(View view) {
         switch (view.getId()) {
             case R.id.btn_add_person:
-                // pass
-                // Log.d("[dujin]", "add_person");
+                startActivity(new Intent(getActivity(), AddModifyAddressActivity.class));
                 break;
             case R.id.btn_del_person:
                 // pass
