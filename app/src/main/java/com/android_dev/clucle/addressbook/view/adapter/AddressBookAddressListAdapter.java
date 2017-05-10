@@ -19,17 +19,14 @@ import java.util.Comparator;
 public class AddressBookAddressListAdapter extends BaseAdapter {
     private ArrayList<AddressBookAddressItem> addressItemList;
 
+    private Boolean checkMode = false;
+
     public AddressBookAddressListAdapter(ArrayList<AddressBookAddressItem> itemList) {
         if (itemList == null) {
             addressItemList = new ArrayList<>();
         } else {
             addressItemList = itemList;
         }
-    }
-
-    static class ViewHolder {
-        protected TextView text_id;
-        protected CheckBox checkBox;
     }
 
     @Override
@@ -51,7 +48,8 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Context context = parent.getContext();
 
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
+
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -73,6 +71,8 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
                 }
             });
 
+            viewHolder.checkBox.setVisibility(View.GONE);
+
             convertView.setTag(viewHolder);
             convertView.setTag(R.id.text_id_address, viewHolder.text_id);
             convertView.setTag(R.id.checkBox_address, viewHolder.checkBox);
@@ -84,11 +84,21 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
 
         AddressBookAddressItem addressBookAddressItem = addressItemList.get(position);
 
+        if (addressBookAddressItem.getCheckBox())
+            viewHolder.checkBox.setVisibility(View.VISIBLE);
+        else
+            viewHolder.checkBox.setVisibility(View.GONE);
+
         viewHolder.checkBox.setTag(position);
         viewHolder.text_id.setText(addressBookAddressItem.getShowText());
         viewHolder.checkBox.setChecked(addressBookAddressItem.isSelected());
 
         return convertView;
+    }
+
+    static class ViewHolder {
+        protected TextView text_id;
+        protected CheckBox checkBox;
     }
 
     public void addItem(int numImg, String text) {
@@ -119,11 +129,19 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
     }
 
     public void removeItem(int index) {
-
         addressItemList.remove(index);
-
         notifyDataSetChanged();
     }
+
+    public void setCheckMode(Boolean isCheckMode) {
+        checkMode = isCheckMode;
+        for (int getPosition = 0; getPosition < addressItemList.size(); getPosition++) {
+            addressItemList.get(getPosition).setCheckBox(checkMode);
+        }
+        notifyDataSetChanged();
+    }
+
+    public Boolean getCheckMode() { return checkMode; }
 
     public ArrayList<AddressBookAddressItem> getItemList() {
         return addressItemList;

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,8 +88,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
                 startActivity(new Intent(getActivity(), AddModifyAddressActivity.class));
                 break;
             case R.id.btn_del_person:
-                // pass
-                // Log.d("[dujin]", "del_person");
+                addressPresenter.setCheckMode(true);
                 break;
         }
     }

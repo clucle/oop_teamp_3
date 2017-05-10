@@ -4,6 +4,7 @@ public class AddressBookAddressItem {
     private int numImg;
     private String showText;
     private boolean selected = false;
+    private boolean isCheckBox = false;
 
     public void setImgNum(int numImg) {
         this.numImg = numImg;
@@ -25,5 +26,12 @@ public class AddressBookAddressItem {
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public void setCheckBox(Boolean isCheckBox) {
+        this.isCheckBox = isCheckBox;
+    }
+    public boolean getCheckBox() {
+        return isCheckBox;
     }
 }

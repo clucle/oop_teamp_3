@@ -71,8 +71,6 @@ public class AddressBookAddressPresenter {
                     addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
             }
         }
-
-
     }
 
     public void addItem(int numImg, String text) {
@@ -92,7 +90,7 @@ public class AddressBookAddressPresenter {
     public void searchAddress(String text) {
         String nonBlankText = text;
         nonBlankText = nonBlankText.replaceAll(" ", "");
-        if (nonBlankText == "") {
+        if (nonBlankText.equals("")) {
             adapter.notifyDataSetChanged();
             view.showSearchedItem(false);
         } else {
@@ -100,6 +98,14 @@ public class AddressBookAddressPresenter {
             loadSearchedItem(nonBlankText);
             adapterSearched.notifyDataSetChanged();
             view.showSearchedItem(true);
+        }
+    }
+
+    public void setCheckMode(Boolean isChecked) {
+        if (adapter.getCheckMode()) {
+            adapter.setCheckMode(false);
+        } else {
+            adapter.setCheckMode(true);
         }
     }
 
