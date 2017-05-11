@@ -136,6 +136,7 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
     public void setCheckMode(Boolean isCheckMode) {
         checkMode = isCheckMode;
         for (int getPosition = 0; getPosition < addressItemList.size(); getPosition++) {
+            addressItemList.get(getPosition).setSelected(false);
             addressItemList.get(getPosition).setCheckBox(checkMode);
         }
         notifyDataSetChanged();

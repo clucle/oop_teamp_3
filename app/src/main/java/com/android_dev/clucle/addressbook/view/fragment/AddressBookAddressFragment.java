@@ -9,11 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 import com.android_dev.clucle.addressbook.view.activity.AddModifyAddressActivity;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +32,10 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
 
     private Unbinder unbinder;
     private AddressBookAddressPresenter addressPresenter;
-
     @BindView(R.id.listview_address) ListView listView;
+
+    @BindView(R.id.llayout_del_state) LinearLayout llayoutDelState;
+    @BindView(R.id.llayout_nondel_state) LinearLayout llayoutNoneDelState;
 
     public AddressBookAddressFragment() {
         super();
@@ -47,10 +55,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         unbinder = ButterKnife.bind(this, view);
 
         listView.setAdapter(addressPresenter.getAdapter());
-
-        addressPresenter.loadItem();
-        addressPresenter.readyRemoveItem(true);
-
+        showDeleteItem(false);
         return view;
     }
 
@@ -60,19 +65,21 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         unbinder.unbind();
     }
 
-    /* ========================= View ===================== */
-    @Override
-    public void showCheckItemMode(Boolean isCheckMode) {
-        //Log.d("[user]","checkItemMode");
-        //if (isCheckMode) listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        //else listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
-
-    }
-
+    /* ==================== View Interface ================== */
     @Override
     public void showSearchedItem(Boolean isSearched) {
         if (isSearched) listView.setAdapter(addressPresenter.getAdapterSearched());
         else listView.setAdapter(addressPresenter.getAdapter());
+    }
+    @Override
+    public void showDeleteItem(Boolean isStateDel) {
+        if (isStateDel) {
+            llayoutNoneDelState.setVisibility(View.GONE);
+            llayoutDelState.setVisibility(View.VISIBLE);
+        } else {
+            llayoutNoneDelState.setVisibility(View.VISIBLE);
+            llayoutDelState.setVisibility(View.GONE);
+        }
     }
     /* ==================================================== */
 
@@ -88,7 +95,18 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
                 startActivity(new Intent(getActivity(), AddModifyAddressActivity.class));
                 break;
             case R.id.btn_del_person:
-                addressPresenter.setCheckMode(true);
+                addressPresenter.setStateRemoveAddress(true);
+                break;
+        }
+    }
+    @OnClick({R.id.btn_confirm_del, R.id.btn_cancel_del})
+    public void clickAddressDelBtn(View view) {
+        switch (view.getId()) {
+            case R.id.btn_confirm_del:
+                //pass
+                break;
+            case R.id.btn_cancel_del:
+                addressPresenter.setStateRemoveAddress(false);
                 break;
         }
     }

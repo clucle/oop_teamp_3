@@ -23,10 +23,13 @@ public class AddressBookAddressPresenter {
     private ArrayList<AddressBookAddressItem> itemList = new ArrayList<>();
     private ArrayList<AddressBookAddressItem> itemSearchedList = new ArrayList<>();
 
+    /* init var */
+    private Boolean state_del = false;
+
     /* View Method */
     public interface View {
-        void showCheckItemMode(Boolean isCheckMode);
         void showSearchedItem(Boolean isSearched);
+        void showDeleteItem(Boolean isStateDel);
     }
 
     /* Presenter Method */
@@ -34,6 +37,7 @@ public class AddressBookAddressPresenter {
         this.view = view;
         adapter = new AddressBookAddressListAdapter(itemList);
         adapterSearched = new AddressBookAddressListAdapter(itemSearchedList);
+        loadItem();
     }
 
     /* ListView Method */
@@ -45,14 +49,14 @@ public class AddressBookAddressPresenter {
     }
 
     /* Management Data */
-    public void loadItem() {
+    private void loadItem() {
         ArrayList<Person> persons = Persons.getInstance().getPersons();
         for (int index_person = 0; index_person < persons.size(); index_person++) {
             addItem(index_person % 10, persons.get(index_person).getsName());
         }
     }
 
-    public void loadSearchedItem(String searchedText) {
+    private void loadSearchedItem(String searchedText) {
         ArrayList<Person> persons = Persons.getInstance().getPersons();
 
         for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
@@ -73,16 +77,11 @@ public class AddressBookAddressPresenter {
         }
     }
 
-    public void addItem(int numImg, String text) {
+    private void addItem(int numImg, String text) {
         adapter.addItem(numImg, text);
     }
 
-    public void readyRemoveItem(Boolean isCheckMode) {
-        view.showCheckItemMode(isCheckMode);
-        adapter.notifyDataSetChanged();
-    }
-
-    public void addSearchedItem(int numImg, String text) {
+    private void addSearchedItem(int numImg, String text) {
         adapterSearched.addItem(numImg, text);
     }
 
@@ -96,17 +95,22 @@ public class AddressBookAddressPresenter {
         } else {
             itemSearchedList.clear();
             loadSearchedItem(nonBlankText);
+            adapterSearched.setCheckMode(state_del);
+
             adapterSearched.notifyDataSetChanged();
             view.showSearchedItem(true);
         }
     }
 
-    public void setCheckMode(Boolean isChecked) {
-        if (adapter.getCheckMode()) {
-            adapter.setCheckMode(false);
-        } else {
-            adapter.setCheckMode(true);
-        }
+    private void setCheckMode(Boolean isChecked) {
+        adapter.setCheckMode(isChecked);
+        adapterSearched.setCheckMode(isChecked);
+        view.showDeleteItem(isChecked);
     }
 
+    /* Fragment 에서 부르는 Method */
+    public void setStateRemoveAddress(Boolean isStateRemove) {
+        state_del = isStateRemove;
+        setCheckMode(isStateRemove);
+    }
 }
