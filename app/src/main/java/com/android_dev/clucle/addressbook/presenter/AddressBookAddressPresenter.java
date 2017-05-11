@@ -25,6 +25,7 @@ public class AddressBookAddressPresenter {
 
     /* init var */
     private Boolean state_del = false;
+    private String searchedText = "";
 
     /* View Method */
     public interface View {
@@ -50,6 +51,7 @@ public class AddressBookAddressPresenter {
 
     /* Management Data */
     private void loadItem() {
+        itemList.clear();
         ArrayList<Person> persons = Persons.getInstance().getPersons();
         for (int index_person = 0; index_person < persons.size(); index_person++) {
             addItem(index_person % 10, persons.get(index_person).getsName());
@@ -59,6 +61,7 @@ public class AddressBookAddressPresenter {
     private void loadSearchedItem(String searchedText) {
         ArrayList<Person> persons = Persons.getInstance().getPersons();
 
+        this.searchedText = searchedText;
         for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
             if (SearchByName.search(persons.get(iSearch).getsName(), searchedText))
                 addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
@@ -112,5 +115,13 @@ public class AddressBookAddressPresenter {
     public void setStateRemoveAddress(Boolean isStateRemove) {
         state_del = isStateRemove;
         setCheckMode(isStateRemove);
+    }
+
+    public void savePerson() {
+        loadItem();
+        loadSearchedItem(searchedText);
+
+        adapter.notifyDataSetChanged();
+        adapterSearched.notifyDataSetChanged();
     }
 }

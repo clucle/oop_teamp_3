@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressActivity;
 
@@ -57,14 +58,23 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        addressPresenter.savePerson();
+        /*
         if (resultCode == 1) {
+            int numImg = Integer.parseInt(data.getStringExtra("new_person_numImg"));
             String name = data.getStringExtra("new_person_name");
             String number = data.getStringExtra("new_person_number");
             String club = data.getStringExtra("new_person_club");
             String email = data.getStringExtra("new_person_email");
-            
-        }
+
+            // Add DB
+
+            // Add Local
+
+            // Add List
+            addressPresenter.addNewPerson(new Person(numImg, name, number, club, email));
+
+        }*/
     }
 
     @Override
