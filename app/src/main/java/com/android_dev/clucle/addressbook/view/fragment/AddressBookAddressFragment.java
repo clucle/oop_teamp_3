@@ -109,6 +109,8 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         switch (view.getId()) {
             case R.id.btn_confirm_del:
                 //pass
+                addressPresenter.confirmDel();
+                addressPresenter.setStateRemoveAddress(false);
                 break;
             case R.id.btn_cancel_del:
                 addressPresenter.setStateRemoveAddress(false);

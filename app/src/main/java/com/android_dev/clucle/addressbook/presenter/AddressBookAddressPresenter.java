@@ -9,6 +9,7 @@ import com.android_dev.clucle.addressbook.utils.SearchByNumber;
 import com.android_dev.clucle.addressbook.view.adapter.AddressBookAddressListAdapter;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
+import java.io.Console;
 import java.util.ArrayList;
 
 public class AddressBookAddressPresenter {
@@ -22,6 +23,7 @@ public class AddressBookAddressPresenter {
 
     private ArrayList<AddressBookAddressItem> itemList = new ArrayList<>();
     private ArrayList<AddressBookAddressItem> itemSearchedList = new ArrayList<>();
+    private ArrayList<AddressBookAddressItem> checkedList = new ArrayList<>();
 
     /* init var */
     private Boolean state_del = false;
@@ -95,8 +97,11 @@ public class AddressBookAddressPresenter {
         String nonBlankText = text;
         nonBlankText = nonBlankText.replaceAll(" ", "");
         if (nonBlankText.equals("")) {
+
+
             adapter.notifyDataSetChanged();
             view.showSearchedItem(false);
+
         } else {
             loadSearchedItem(nonBlankText);
             adapterSearched.setCheckMode(state_del);
@@ -116,6 +121,25 @@ public class AddressBookAddressPresenter {
     public void setStateRemoveAddress(Boolean isStateRemove) {
         state_del = isStateRemove;
         setCheckMode(isStateRemove);
+    }
+
+    public void confirmDel() {
+        /*
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).isSelected()) {
+                checkedList.add(itemList.get(i));
+            }
+        }
+        for (int i = 0; i < itemSearchedList.size(); i++) {
+            if (itemSearchedList.get(i).isSelected()) {
+                checkedList.add(itemSearchedList.get(i));
+            }
+        }
+        for (int i = 0; i < checkedList.size(); i++) {
+            Log.d("[qqqqqq]", checkedList.get(i).getShowText());
+        }
+        checkedList.clear();*/
+
     }
 
     public void savePerson() {
