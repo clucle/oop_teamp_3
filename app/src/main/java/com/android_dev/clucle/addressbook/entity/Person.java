@@ -25,9 +25,9 @@ public class Person {
         if (getClass() != obj.getClass()) return false;
         Person other = (Person) obj;
         if (!sName.equals(other.getsName())) return false;
-        if (!sNumber.equals(other.getsNumber())) return false;
-        if (!sClub.equals(other.getsClub())) return false;
-        if (!sEmail.equals(other.getsEmail())) return false;
+        //if (!sNumber.equals(other.getsNumber())) return false;
+        //if (!sClub.equals(other.getsClub())) return false;
+        //if (!sEmail.equals(other.getsEmail())) return false;
 
         return true;
     }

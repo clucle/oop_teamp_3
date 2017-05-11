@@ -5,21 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
-import com.android_dev.clucle.addressbook.view.activity.AddModifyAddressActivity;
-
-import org.w3c.dom.Text;
+import com.android_dev.clucle.addressbook.view.activity.AddAddressActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +86,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     public void clickAddressToolbarBtn(View view) {
         switch (view.getId()) {
             case R.id.btn_add_person:
-                startActivity(new Intent(getActivity(), AddModifyAddressActivity.class));
+                startActivity(new Intent(getActivity(), AddAddressActivity.class));
                 break;
             case R.id.btn_del_person:
                 addressPresenter.setStateRemoveAddress(true);

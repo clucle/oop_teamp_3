@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android_dev.clucle.addressbook.view.activity.AddModifyAddressActivity">
+    tools:context="com.android_dev.clucle.addressbook.view.activity.AddAddressActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

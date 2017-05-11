@@ -3,19 +3,20 @@ package com.android_dev.clucle.addressbook.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.utils.BackPressCloseHandler;
+import com.android_dev.clucle.addressbook.utils.Persons;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddModifyAddressActivity extends AppCompatActivity {
+public class AddAddressActivity extends AppCompatActivity {
     @BindView(R.id.imageButton_character) ImageButton imageButtonCharacter;
     @BindView(R.id.editText_add_modify_name) EditText editTextName;
     @BindView(R.id.editText_add_modify_number) EditText editTextNumber;
@@ -28,7 +29,7 @@ public class AddModifyAddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_modify_address);
+        setContentView(R.layout.activity_add_address);
         ButterKnife.bind(this);
         identifyCharacter = 1;
         backPressCloseHandler = new BackPressCloseHandler(this);
@@ -50,10 +51,17 @@ public class AddModifyAddressActivity extends AppCompatActivity {
         String name = editTextName.getText().toString().trim();
         String number = editTextNumber.getText().toString().trim();
         String club = editTextClub.getText().toString().trim();
-        String editTextEmail = editTextName.getText().toString().trim();
+        String email = editTextName.getText().toString().trim();
 
         if (name.length() == 0) {
             Toast.makeText(getApplicationContext(), "이름은 공백으로 저장 할 수 없습니다.", Toast.LENGTH_LONG).show();
+            return ;
+        }
+        Person newPerson = new Person(name, number, club, email);
+        if (Persons.getInstance().getPersons().indexOf(newPerson) == -1) {
+
+        } else {
+            Toast.makeText(getApplicationContext(), "이미 저장되어 있는 이름입니다.", Toast.LENGTH_LONG).show();
             return ;
         }
 
