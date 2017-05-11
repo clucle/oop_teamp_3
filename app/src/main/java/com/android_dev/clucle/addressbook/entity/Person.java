@@ -1,12 +1,14 @@
 package com.android_dev.clucle.addressbook.entity;
 
 public class Person {
+    private int nImg;
     private String sName;
     private String sNumber;
     private String sClub;
     private String sEmail;
 
-    public Person(String name, String number, String club, String email) {
+    public Person(int img, String name, String number, String club, String email) {
+        nImg = img;
         sName = name;
         sNumber = number;
         sClub = club;
@@ -32,6 +34,7 @@ public class Person {
         return true;
     }
 
+    public int getnImg() { return nImg; }
     public String getsName() { return sName; }
     public String getsNumber() { return sNumber; }
     public String getsClub() { return sClub; }
