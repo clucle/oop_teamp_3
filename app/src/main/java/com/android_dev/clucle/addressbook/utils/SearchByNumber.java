@@ -11,7 +11,7 @@ public class SearchByNumber {
     }
 
     public static boolean matchNumber(String part, String all){
-
+        if (part.length() > all.length()) return false;
         if((part).equals(all.substring(0, part.length())))
         {
             return true;

@@ -58,23 +58,10 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // refresh List
         addressPresenter.savePerson();
-        /*
-        if (resultCode == 1) {
-            int numImg = Integer.parseInt(data.getStringExtra("new_person_numImg"));
-            String name = data.getStringExtra("new_person_name");
-            String number = data.getStringExtra("new_person_number");
-            String club = data.getStringExtra("new_person_club");
-            String email = data.getStringExtra("new_person_email");
 
-            // Add DB
-
-            // Add Local
-
-            // Add List
-            addressPresenter.addNewPerson(new Person(numImg, name, number, club, email));
-
-        }*/
     }
 
     @Override

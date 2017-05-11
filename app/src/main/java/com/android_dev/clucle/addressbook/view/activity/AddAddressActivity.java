@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.data.SQLiteAddress;
 import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.utils.BackPressCloseHandler;
 import com.android_dev.clucle.addressbook.utils.Persons;
@@ -60,13 +61,17 @@ public class AddAddressActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "이름은 공백으로 저장 할 수 없습니다.", Toast.LENGTH_LONG).show();
             return ;
         }
-        Person newPerson = new Person(name, number, club, email);
+        Person newPerson = new Person(identifyCharacter, name, number, club, email);
         if (Persons.getInstance().getPersons().indexOf(newPerson) == -1) {
-            intent.putExtra("new_person_name", name);
-            intent.putExtra("new_person_number", number);
-            intent.putExtra("new_person_club", club);
-            intent.putExtra("new_person_email", email);
+
+            // Add DataBase
+            SQLiteAddress DB = new SQLiteAddress(getApplicationContext(), "addressBookPersonTest.db", null, 4);
+            DB.insert(identifyCharacter, name, number, club, email);
+
+            // Add Local Data
+            Persons.getInstance().addPerson(newPerson);
             setResult(RESULT_OK, intent);
+
             finish();
         } else {
             Toast.makeText(getApplicationContext(), "이미 저장되어 있는 이름입니다.", Toast.LENGTH_LONG).show();

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -47,6 +48,8 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
         addressBookPresenter.setContext(getApplicationContext());
         addressBookPresenter.loadDB(); // Load Address
 
+        Log.d("[dududu]", "why called");
+
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vp_addressbook.setOffscreenPageLimit(2);
         vp_addressbook.setCurrentItem(0);
@@ -86,6 +89,7 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
             }
         });
     }
+
 
     View.OnClickListener movePageListener = new View.OnClickListener() {
         @Override

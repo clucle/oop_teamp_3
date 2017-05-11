@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class SQLiteAddress extends SQLiteOpenHelper{
-    private String Table = "address";
+    private String Table = "persontest";
 
     public SQLiteAddress(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -15,7 +16,7 @@ public class SQLiteAddress extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE if not exists " + Table +
-                " (name STRING PRIMARY KEY, number STRING, club STRING, email STRING)"
+                " (img INTEGER, name STRING PRIMARY KEY, number STRING, club STRING, email STRING)"
         );
     }
 
@@ -24,8 +25,9 @@ public class SQLiteAddress extends SQLiteOpenHelper{
         throw new UnsupportedOperationException("not implemented");
     }
 
-    public void insert(String name, String number, String group, String email) {
+    public void insert(int img, String name, String number, String group, String email) {
         ContentValues values = new ContentValues();
+        values.put("img", img);
         values.put("name", name);
         values.put("number", number);
         values.put("club", group);

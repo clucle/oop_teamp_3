@@ -60,7 +60,7 @@ public class AddressBookAddressPresenter {
 
     private void loadSearchedItem(String searchedText) {
         ArrayList<Person> persons = Persons.getInstance().getPersons();
-
+        itemSearchedList.clear();
         this.searchedText = searchedText;
         for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
             if (SearchByName.search(persons.get(iSearch).getsName(), searchedText))
@@ -69,12 +69,14 @@ public class AddressBookAddressPresenter {
         if (searchedText.substring(0, 1).equals("0")) {
             searchedText = searchedText.substring(1);
             for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
+                if (persons.get(iSearch).getsNumber().equals("")) continue;
                 if (SearchByNumber.search(persons.get(iSearch).getsNumber(), searchedText))
                     addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
             }
         } else {
             for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
-                if (SearchByNumber.search(persons.get(iSearch).getsNumber(), searchedText))
+                if (persons.get(iSearch).getsNumber().equals("")) continue;
+                if (SearchByNumber.search(searchedText, persons.get(iSearch).getsNumber()))
                     addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
             }
         }
@@ -96,7 +98,6 @@ public class AddressBookAddressPresenter {
             adapter.notifyDataSetChanged();
             view.showSearchedItem(false);
         } else {
-            itemSearchedList.clear();
             loadSearchedItem(nonBlankText);
             adapterSearched.setCheckMode(state_del);
 
@@ -119,7 +120,7 @@ public class AddressBookAddressPresenter {
 
     public void savePerson() {
         loadItem();
-        loadSearchedItem(searchedText);
+        if (!searchedText.equals("")) loadSearchedItem(searchedText);
 
         adapter.notifyDataSetChanged();
         adapterSearched.notifyDataSetChanged();

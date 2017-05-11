@@ -19,6 +19,8 @@ public class Persons {
         return instance;
     }
 
+    public void refresh() { persons.clear(); }
+
     public void addPerson(Person person) {
         persons.add(person);
     }
