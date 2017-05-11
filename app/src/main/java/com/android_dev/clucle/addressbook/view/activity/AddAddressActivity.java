@@ -1,5 +1,6 @@
 package com.android_dev.clucle.addressbook.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
     private int identifyCharacter;
     private BackPressCloseHandler backPressCloseHandler;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class AddAddressActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         identifyCharacter = 1;
         backPressCloseHandler = new BackPressCloseHandler(this);
+        intent = getIntent();
     }
 
     @OnClick(R.id.imageButton_character)
@@ -59,7 +62,12 @@ public class AddAddressActivity extends AppCompatActivity {
         }
         Person newPerson = new Person(name, number, club, email);
         if (Persons.getInstance().getPersons().indexOf(newPerson) == -1) {
-
+            intent.putExtra("new_person_name", name);
+            intent.putExtra("new_person_number", number);
+            intent.putExtra("new_person_club", club);
+            intent.putExtra("new_person_email", email);
+            setResult(RESULT_OK, intent);
+            finish();
         } else {
             Toast.makeText(getApplicationContext(), "이미 저장되어 있는 이름입니다.", Toast.LENGTH_LONG).show();
             return ;

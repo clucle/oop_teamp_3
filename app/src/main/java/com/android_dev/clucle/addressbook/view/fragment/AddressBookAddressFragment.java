@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,19 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 1) {
+            String name = data.getStringExtra("new_person_name");
+            String number = data.getStringExtra("new_person_number");
+            String club = data.getStringExtra("new_person_club");
+            String email = data.getStringExtra("new_person_email");
+            
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -86,7 +100,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
     public void clickAddressToolbarBtn(View view) {
         switch (view.getId()) {
             case R.id.btn_add_person:
-                startActivity(new Intent(getActivity(), AddAddressActivity.class));
+                startActivityForResult(new Intent(getActivity(), AddAddressActivity.class), 1);
                 break;
             case R.id.btn_del_person:
                 addressPresenter.setStateRemoveAddress(true);
@@ -104,4 +118,5 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
                 break;
         }
     }
+
 }
