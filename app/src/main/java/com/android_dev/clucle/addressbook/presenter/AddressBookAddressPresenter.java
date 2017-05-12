@@ -1,8 +1,11 @@
 package com.android_dev.clucle.addressbook.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.android_dev.clucle.addressbook.data.SQLiteAddress;
 import com.android_dev.clucle.addressbook.entity.Person;
+import com.android_dev.clucle.addressbook.utils.CheckDelHandler;
 import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.utils.SearchByName;
 import com.android_dev.clucle.addressbook.utils.SearchByNumber;
@@ -16,6 +19,7 @@ public class AddressBookAddressPresenter {
 
     /* Presenter Setting */
     private View view;
+    private Context context;
 
     /* ListView Setting */
     private AddressBookAddressListAdapter adapter;
@@ -23,16 +27,20 @@ public class AddressBookAddressPresenter {
 
     private ArrayList<AddressBookAddressItem> itemList = new ArrayList<>();
     private ArrayList<AddressBookAddressItem> itemSearchedList = new ArrayList<>();
-    private ArrayList<AddressBookAddressItem> checkedList = new ArrayList<>();
+    //private ArrayList<AddressBookAddressItem> checkedList = new ArrayList<>();
 
     /* init var */
     private Boolean state_del = false;
     private String searchedText = "";
 
+
     /* View Method */
     public interface View {
         void showSearchedItem(Boolean isSearched);
         void showDeleteItem(Boolean isStateDel);
+    }
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     /* Presenter Method */
@@ -98,6 +106,14 @@ public class AddressBookAddressPresenter {
         nonBlankText = nonBlankText.replaceAll(" ", "");
         if (nonBlankText.equals("")) {
 
+            ArrayList<AddressBookAddressItem>checkedList = CheckDelHandler.getInstance().getChckedList();
+
+            for (int i = 0; i < checkedList.size(); i++) {
+                int index = itemList.indexOf(checkedList.get(i));
+                if (index != -1) {
+                    itemList.get(index).setSelected(true);
+                }
+            }
 
             adapter.notifyDataSetChanged();
             view.showSearchedItem(false);
@@ -105,6 +121,14 @@ public class AddressBookAddressPresenter {
         } else {
             loadSearchedItem(nonBlankText);
             adapterSearched.setCheckMode(state_del);
+
+            ArrayList<AddressBookAddressItem>checkedList = CheckDelHandler.getInstance().getChckedList();
+            for (int i = 0; i < checkedList.size(); i++) {
+                int index = itemSearchedList.indexOf(checkedList.get(i));
+                if (index != -1) {
+                    itemSearchedList.get(index).setSelected(true);
+                }
+            }
 
             adapterSearched.notifyDataSetChanged();
             view.showSearchedItem(true);
@@ -120,26 +144,26 @@ public class AddressBookAddressPresenter {
     /* Fragment 에서 부르는 Method */
     public void setStateRemoveAddress(Boolean isStateRemove) {
         state_del = isStateRemove;
+        if (!state_del) {
+            ArrayList<AddressBookAddressItem>checkedList = CheckDelHandler.getInstance().getChckedList();
+            checkedList.clear();
+        }
         setCheckMode(isStateRemove);
     }
 
     public void confirmDel() {
-        /*
-        for (int i = 0; i < itemList.size(); i++) {
-            if (itemList.get(i).isSelected()) {
-                checkedList.add(itemList.get(i));
-            }
-        }
-        for (int i = 0; i < itemSearchedList.size(); i++) {
-            if (itemSearchedList.get(i).isSelected()) {
-                checkedList.add(itemSearchedList.get(i));
-            }
-        }
+        ArrayList<AddressBookAddressItem>checkedList = CheckDelHandler.getInstance().getChckedList();
+        AddressBookAddressItem checkedItem;
         for (int i = 0; i < checkedList.size(); i++) {
-            Log.d("[qqqqqq]", checkedList.get(i).getShowText());
-        }
-        checkedList.clear();*/
+            checkedItem = checkedList.get(i);
+            itemList.remove(checkedItem);
+            itemSearchedList.remove(checkedItem);
+            Persons.getInstance().removePerson(checkedItem.getShowText());
 
+            SQLiteAddress DB = new SQLiteAddress(context, "addressBookPersonTest.db", null, 4);
+            DB.delete(checkedItem.getShowText());
+
+        }
     }
 
     public void savePerson() {

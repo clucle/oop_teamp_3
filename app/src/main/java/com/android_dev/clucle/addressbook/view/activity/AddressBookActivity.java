@@ -48,7 +48,6 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
         addressBookPresenter.setContext(getApplicationContext());
         addressBookPresenter.loadDB(); // Load Address
 
-        Log.d("[dududu]", "why called");
 
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vp_addressbook.setOffscreenPageLimit(2);
@@ -94,20 +93,20 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
     View.OnClickListener movePageListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int tag = (int) v.getTag();
+        int tag = (int) v.getTag();
 
-            int i = 0;
-            while (i<3)
-            {
-                if (tag == i) {
-                    llayout_adressbook_btn.findViewWithTag(i).setSelected(true);
-                } else {
-                    llayout_adressbook_btn.findViewWithTag(i).setSelected(false);
-                }
-                i++;
+        int i = 0;
+        while (i<3)
+        {
+            if (tag == i) {
+                llayout_adressbook_btn.findViewWithTag(i).setSelected(true);
+            } else {
+                llayout_adressbook_btn.findViewWithTag(i).setSelected(false);
             }
+            i++;
+        }
 
-            vp_addressbook.setCurrentItem(tag);
+        vp_addressbook.setCurrentItem(tag);
         }
     };
 

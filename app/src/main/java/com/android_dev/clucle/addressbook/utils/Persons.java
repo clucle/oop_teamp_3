@@ -25,8 +25,9 @@ public class Persons {
         persons.add(person);
     }
 
-    public void delPerson(Person person) {
-        persons.remove(person);
+    public void removePerson(String name) {
+        Person delPerson = new Person(1, name, "", "", "");
+        persons.remove(delPerson);
     }
 
     public ArrayList<Person> getPersons() {

@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.utils.CheckDelHandler;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
 import java.util.ArrayList;
@@ -61,13 +62,15 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (((CheckBox) v).isChecked()) {
-                        int getPosition = (Integer) v.getTag();
-                        addressItemList.get(getPosition).setSelected(true);
-                    } else {
-                        int getPosition = (Integer) v.getTag();
-                        addressItemList.get(getPosition).setSelected(false);
-                    }
+                if (((CheckBox) v).isChecked()) {
+                    int getPosition = (Integer) v.getTag();
+                    addressItemList.get(getPosition).setSelected(true);
+                    CheckDelHandler.getInstance().addItem(addressItemList.get(getPosition));
+                } else {
+                    int getPosition = (Integer) v.getTag();
+                    addressItemList.get(getPosition).setSelected(false);
+                    CheckDelHandler.getInstance().removeItem(addressItemList.get(getPosition));
+                }
                 }
             });
 

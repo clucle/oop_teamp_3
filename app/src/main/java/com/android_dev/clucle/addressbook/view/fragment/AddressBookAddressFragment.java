@@ -48,6 +48,8 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
         View view = inflater.inflate(R.layout.fragment_addressbook_address, container, false);
 
         addressPresenter = new AddressBookAddressPresenter(this);
+        addressPresenter.setContext(getContext());
+
         unbinder = ButterKnife.bind(this, view);
 
         listView.setAdapter(addressPresenter.getAdapter());
