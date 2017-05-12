@@ -9,17 +9,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
+import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressActivity;
+import com.android_dev.clucle.addressbook.view.activity.ModifyAddressActivity;
+import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
+import butterknife.OnItemLongClick;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
@@ -118,6 +126,46 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
                 addressPresenter.setStateRemoveAddress(false);
                 break;
         }
+    }
+
+    @OnItemClick(R.id.listview_address)
+    public void clickPerson(AdapterView<?> parent, View view, int position, long id) {
+        if(addressPresenter.getStateRemoveAddress()) {
+            // Log.d("[click_list]", "is deleteMode");
+         } else {
+            ArrayList<AddressBookAddressItem> modifyItem;
+            if (addressPresenter.getStateSearch()) {
+                modifyItem = addressPresenter.getItemSearchedList();
+            } else {
+                modifyItem = addressPresenter.getItemList();
+            }
+
+            // new Activity for modify
+            Intent intent = new Intent(getActivity(), ModifyAddressActivity.class);
+
+            Person searchToModifyPerson = new Person(1, modifyItem.get(position).getShowText(),
+                    "", "", "");
+            int index = Persons.getInstance().getPersons().
+                    indexOf(searchToModifyPerson);
+
+            Person modifyPerson = Persons.getInstance().getPersons().get(index);
+
+            intent.putExtra("nImg", Integer.toString(modifyPerson.getnImg()));
+            intent.putExtra("sName", modifyPerson.getsName());
+            intent.putExtra("sNumber", modifyPerson.getsNumber());
+            intent.putExtra("sClub", modifyPerson.getsClub());
+            intent.putExtra("sEmail", modifyPerson.getsEmail());
+
+            startActivityForResult(intent, 2);
+        }
+    }
+
+    @OnItemLongClick(R.id.listview_address)
+    public boolean clickLongPerson(View view) {
+        if(!addressPresenter.getStateRemoveAddress()) {
+            addressPresenter.setStateRemoveAddress(true);
+        }
+        return true;
     }
 
 }

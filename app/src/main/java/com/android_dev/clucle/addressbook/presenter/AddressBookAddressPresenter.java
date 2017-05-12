@@ -31,6 +31,7 @@ public class AddressBookAddressPresenter {
 
     /* init var */
     private Boolean state_del = false;
+    private Boolean state_search = false;
     private String searchedText = "";
 
 
@@ -58,6 +59,9 @@ public class AddressBookAddressPresenter {
     public AddressBookAddressListAdapter getAdapterSearched() {
         return adapterSearched;
     }
+    public ArrayList<AddressBookAddressItem> getItemList() { return itemList; }
+    public ArrayList<AddressBookAddressItem> getItemSearchedList() { return itemSearchedList; }
+
 
     /* Management Data */
     private void loadItem() {
@@ -114,7 +118,7 @@ public class AddressBookAddressPresenter {
                     itemList.get(index).setSelected(true);
                 }
             }
-
+            state_search = false;
             adapter.notifyDataSetChanged();
             view.showSearchedItem(false);
 
@@ -129,7 +133,7 @@ public class AddressBookAddressPresenter {
                     itemSearchedList.get(index).setSelected(true);
                 }
             }
-
+            state_search = true;
             adapterSearched.notifyDataSetChanged();
             view.showSearchedItem(true);
         }
@@ -149,6 +153,12 @@ public class AddressBookAddressPresenter {
             checkedList.clear();
         }
         setCheckMode(isStateRemove);
+    }
+    public Boolean getStateRemoveAddress() {
+        return state_del;
+    }
+    public Boolean getStateSearch() {
+        return state_search;
     }
 
     public void confirmDel() {

@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddAddressActivity extends AppCompatActivity {
+public class ModifyAddressActivity extends AppCompatActivity {
     @BindView(R.id.imageButton_character) ImageButton imageButtonCharacter;
     @BindView(R.id.editText_add_modify_name) EditText editTextName;
     @BindView(R.id.editText_add_modify_number) EditText editTextNumber;
@@ -34,9 +34,26 @@ public class AddAddressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_address);
         ButterKnife.bind(this);
-        identifyCharacter = 1;
+
+
         backPressCloseHandler = new BackPressCloseHandler(this);
         intent = getIntent();
+
+        identifyCharacter = Integer.parseInt(intent.getStringExtra("nImg"));
+        if (identifyCharacter == 1) {
+            imageButtonCharacter.setImageResource(R.drawable.img_btn_pink_dog);
+        } else {
+            imageButtonCharacter.setImageResource(R.drawable.img_btn_blue_dog);
+        }
+        editTextName.setText(intent.getStringExtra("sName"));
+
+        String number = intent.getStringExtra("sNumber");
+        if (number.substring(0, 2).equals("10")) editTextNumber.setText("0" + number);
+        else editTextNumber.setText(number);
+
+        editTextClub.setText(intent.getStringExtra("sClub"));
+        editTextEmail.setText(intent.getStringExtra("sEmail"));
+
     }
 
     @OnClick(R.id.imageButton_character)
