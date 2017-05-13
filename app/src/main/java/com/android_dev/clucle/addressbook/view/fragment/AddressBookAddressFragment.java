@@ -18,6 +18,7 @@ import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressActivity;
+import com.android_dev.clucle.addressbook.view.activity.InfoAddressActivity;
 import com.android_dev.clucle.addressbook.view.activity.ModifyAddressActivity;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
@@ -141,7 +142,7 @@ public class AddressBookAddressFragment extends Fragment implements AddressBookA
             }
 
             // new Activity for modify
-            Intent intent = new Intent(getActivity(), ModifyAddressActivity.class);
+            Intent intent = new Intent(getActivity(), InfoAddressActivity.class);
 
             Person searchToModifyPerson = new Person(1, modifyItem.get(position).getShowText(),
                     "", "", "");

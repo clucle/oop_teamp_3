@@ -28,6 +28,7 @@ public class ModifyAddressActivity extends AppCompatActivity {
     private int identifyCharacter;
     private BackPressCloseHandler backPressCloseHandler;
     private Intent intent;
+    private String myName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class ModifyAddressActivity extends AppCompatActivity {
         } else {
             imageButtonCharacter.setImageResource(R.drawable.img_btn_blue_dog);
         }
+        myName = intent.getStringExtra("sName");
         editTextName.setText(intent.getStringExtra("sName"));
 
         String number = intent.getStringExtra("sNumber");
@@ -79,20 +81,33 @@ public class ModifyAddressActivity extends AppCompatActivity {
             return ;
         }
         Person newPerson = new Person(identifyCharacter, name, number, club, email);
-        if (Persons.getInstance().getPersons().indexOf(newPerson) == -1) {
+        if (Persons.getInstance().getPersons().indexOf(newPerson) == -1 || name.equals(myName)) {
 
             // Add DataBase
             SQLiteAddress DB = new SQLiteAddress(getApplicationContext(), "addressBookPersonTest.db", null, 4);
+            // 기존 DB에서 수정 전 제거
+            DB.delete(myName);
+            // DB에 수정 후 데이터 추가
             DB.insert(identifyCharacter, name, number, club, email);
 
+            // Del Local Data
+            Persons.getInstance().removePerson(myName);
             // Add Local Data
             Persons.getInstance().addPerson(newPerson);
-            setResult(RESULT_OK, intent);
+
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("nImg", Integer.toString(identifyCharacter));
+            resultIntent.putExtra("sName", name);
+            resultIntent.putExtra("sNumber", number);
+            resultIntent.putExtra("sClub", club);
+            resultIntent.putExtra("sEmail", email);
+
+            setResult(RESULT_OK, resultIntent);
 
             finish();
         } else {
             Toast.makeText(getApplicationContext(), "이미 저장되어 있는 이름입니다.", Toast.LENGTH_LONG).show();
-            return ;
+            return;
         }
 
     }

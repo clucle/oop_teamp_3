@@ -42,7 +42,7 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
 
         /* Show Logo Screen */
         // startActivity(new Intent(this, SplashActivity.class));
-        startActivity(new Intent(this, InfoAddressActivity.class));
+
         /* accept Presenter */
         addressBookPresenter = new AddressBookPresenter(this);
         addressBookPresenter.setContext(getApplicationContext());

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
@@ -57,8 +58,10 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.listview_address_item, parent, false);
 
             viewHolder = new ViewHolder();
+            viewHolder.character = (ImageView) convertView.findViewById(R.id.img_address);
             viewHolder.text_id = (TextView) convertView.findViewById(R.id.text_id_address);
             viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox_address);
+
             viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,6 +80,7 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
             viewHolder.checkBox.setVisibility(View.GONE);
 
             convertView.setTag(viewHolder);
+            convertView.setTag(R.id.img_address, viewHolder.character);
             convertView.setTag(R.id.text_id_address, viewHolder.text_id);
             convertView.setTag(R.id.checkBox_address, viewHolder.checkBox);
 
@@ -93,6 +97,17 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
             viewHolder.checkBox.setVisibility(View.GONE);
 
         viewHolder.checkBox.setTag(position);
+
+        int nImg = addressBookAddressItem.getNumImg();
+
+        Log.d("[dududu]", Integer.toString(nImg));
+        Log.d("[dududu]", addressBookAddressItem.getShowText()
+        );
+
+
+        if (nImg == 1) viewHolder.character.setImageResource(R.drawable.img_btn_pink_dog);
+        else viewHolder.character.setImageResource(R.drawable.img_btn_blue_dog);
+
         viewHolder.text_id.setText(addressBookAddressItem.getShowText());
         viewHolder.checkBox.setChecked(addressBookAddressItem.isSelected());
 
@@ -100,6 +115,7 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        protected ImageView character;
         protected TextView text_id;
         protected CheckBox checkBox;
     }

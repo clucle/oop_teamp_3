@@ -68,7 +68,7 @@ public class AddressBookAddressPresenter {
         itemList.clear();
         ArrayList<Person> persons = Persons.getInstance().getPersons();
         for (int index_person = 0; index_person < persons.size(); index_person++) {
-            addItem(index_person % 10, persons.get(index_person).getsName());
+            addItem(persons.get(index_person).getnImg(), persons.get(index_person).getsName());
         }
     }
 
@@ -78,20 +78,20 @@ public class AddressBookAddressPresenter {
         this.searchedText = searchedText;
         for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
             if (SearchByName.search(persons.get(iSearch).getsName(), searchedText))
-                addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
+                addSearchedItem(persons.get(iSearch).getnImg(), persons.get(iSearch).getsName());
         }
         if (searchedText.substring(0, 1).equals("0")) {
             searchedText = searchedText.substring(1);
             for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
                 if (persons.get(iSearch).getsNumber().equals("")) continue;
                 if (SearchByNumber.search(persons.get(iSearch).getsNumber(), searchedText))
-                    addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
+                    addSearchedItem(persons.get(iSearch).getnImg(), persons.get(iSearch).getsName());
             }
         } else {
             for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
                 if (persons.get(iSearch).getsNumber().equals("")) continue;
                 if (SearchByNumber.search(searchedText, persons.get(iSearch).getsNumber()))
-                    addSearchedItem(iSearch % 10, persons.get(iSearch).getsName());
+                    addSearchedItem(persons.get(iSearch).getnImg(), persons.get(iSearch).getsName());
             }
         }
     }
