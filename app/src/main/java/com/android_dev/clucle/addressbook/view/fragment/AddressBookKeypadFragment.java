@@ -2,21 +2,15 @@ package com.android_dev.clucle.addressbook.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookKeypadPresenter;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,14 +18,17 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class AddressBookKeypadFragment extends Fragment implements AddressBookKeypadPresenter.View{
+
     public AddressBookKeypadFragment() {
         super();
     }
 
     private Unbinder unbinder;
     private AddressBookKeypadPresenter keypadPresenter;
-    @BindView(R.id.text_show_number)
-    TextView text_show_number;
+    @BindView(R.id.text_show_number) TextView text_show_number;
+    @BindView(R.id.llayout_keypad_searched) LinearLayout llayoutKeypadSearched;
+    @BindView(R.id.llayout_keypad_not_searched) LinearLayout llayoutKeypadNotSearched;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,10 +50,30 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
         unbinder.unbind();
     }
 
+    /* View Interface */
     @Override
     public void showNumber(String text) {
         text_show_number.setText(text);
     }
+
+    @Override
+    public void showBlankFindView() {
+        llayoutKeypadSearched.setVisibility(View.GONE);
+        llayoutKeypadSearched.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showFindView() {
+        llayoutKeypadSearched.setVisibility(View.VISIBLE);
+        llayoutKeypadNotSearched.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNotFindView() {
+        llayoutKeypadSearched.setVisibility(View.GONE);
+        llayoutKeypadNotSearched.setVisibility(View.VISIBLE);
+    }
+
 
     /* click keypad */
     @OnClick({R.id.btn_keypad_num1, R.id.btn_keypad_num2, R.id.btn_keypad_num3,
