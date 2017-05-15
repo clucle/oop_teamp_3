@@ -94,8 +94,6 @@ public class AddressBookRecentListAdapter extends BaseAdapter{
 
         viewHolder.textName.setText(recentItem.getName());
         viewHolder.textNumber.setText(recentItem.getNumber());
-        Log.d("dududu", recentItem.getName());
-        Log.d("dududu", recentItem.getTime());
         viewHolder.textTime.setText(recentItem.getTime());
 
         return convertView;

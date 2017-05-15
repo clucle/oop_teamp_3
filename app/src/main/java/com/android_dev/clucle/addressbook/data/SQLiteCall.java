@@ -30,7 +30,6 @@ public class SQLiteCall extends SQLiteOpenHelper{
         values.put("type", type);
         values.put("number", number);
         if (!datetime.equals("defaultTime")) values.put("datetime", datetime);
-        else values.put("datetime", "");
 
         this.getWritableDatabase().insert(Table, null, values);
     }

@@ -1,5 +1,7 @@
 package com.android_dev.clucle.addressbook.presenter;
 
+import android.util.Log;
+
 import com.android_dev.clucle.addressbook.entity.Call;
 import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.entity.SMS;

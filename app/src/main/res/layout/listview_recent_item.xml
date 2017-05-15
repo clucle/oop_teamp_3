@@ -70,6 +70,7 @@
         android:id="@+id/text_recent_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#212121"
         android:gravity="right"/>
 
 
