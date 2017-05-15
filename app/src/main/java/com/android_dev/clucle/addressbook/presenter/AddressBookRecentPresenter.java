@@ -21,30 +21,32 @@ public class AddressBookRecentPresenter {
     private AddressBookRecentListAdapter adapterCall;
     private AddressBookRecentListAdapter adapterSMS;
 
-    private ArrayList<AddressBookRecentItem> itemListAll = new ArrayList<>();
-    private ArrayList<AddressBookRecentItem> itemListCall = new ArrayList<>();
-    private ArrayList<AddressBookRecentItem> itemListSMS = new ArrayList<>();
+    //private ArrayList<AddressBookRecentItem> itemListAll = new ArrayList<>();
+    //private ArrayList<AddressBookRecentItem> itemListCall = new ArrayList<>();
+    //private ArrayList<AddressBookRecentItem> itemListSMS = new ArrayList<>();
 
     /* View Method */
     public interface View {
-        public void showAdapter(AddressBookRecentListAdapter adapter);
+        void showAdapter(AddressBookRecentListAdapter adapter);
     }
 
 
     /* Presenter Method */
     public AddressBookRecentPresenter(View view) {
         this.view = view;
-        adapterAll = new AddressBookRecentListAdapter(itemListAll);
-        adapterCall = new AddressBookRecentListAdapter(itemListCall);
-        adapterSMS = new AddressBookRecentListAdapter(itemListSMS);
+
+        adapterAll = new AddressBookRecentListAdapter(null);
+        adapterCall = new AddressBookRecentListAdapter(null);
+        adapterSMS = new AddressBookRecentListAdapter(null);
+
         loadItem();
     }
 
     /* Management Data */
     private void loadItem() {
-        itemListAll.clear();
-        itemListCall.clear();
-        itemListSMS.clear();
+        //itemListAll.clear();
+        //itemListCall.clear();
+        //itemListSMS.clear();
 
 
         ArrayList<Call> calls = Calls.getInstance().getCalls();
@@ -55,12 +57,11 @@ public class AddressBookRecentPresenter {
         /* Load Call */
         for (int index_call = 0; index_call < calls.size(); index_call++) {
             String findNumber = calls.get(index_call).getNumber();
-
             int iSearch;
             for (iSearch = 0; iSearch < persons.size(); iSearch++) {
-                if (SearchByNumber.search(persons.get(iSearch).getsName(), findNumber)) {
+                if (SearchByNumber.search(persons.get(iSearch).getsNumber(), findNumber)) {
 
-                    addListToAdapter(adapterAll,
+                    addList(adapterAll,
                             persons.get(iSearch).getnImg(),
                             "call",
                             calls.get(index_call).getType(),
@@ -68,7 +69,7 @@ public class AddressBookRecentPresenter {
                             findNumber,
                             calls.get(index_call).getTime());
 
-                    addListToAdapter(adapterCall,
+                    addList(adapterCall,
                             persons.get(iSearch).getnImg(),
                             "call",
                             calls.get(index_call).getType(),
@@ -79,7 +80,7 @@ public class AddressBookRecentPresenter {
                 }
             }
             if (iSearch == persons.size()) {
-                addListToAdapter(adapterAll,
+                addList(adapterAll,
                         3,
                         "call",
                         calls.get(index_call).getType(),
@@ -87,14 +88,13 @@ public class AddressBookRecentPresenter {
                         findNumber,
                         calls.get(index_call).getTime());
 
-                addListToAdapter(adapterCall,
+                addList(adapterCall,
                         3,
                         "call",
                         calls.get(index_call).getType(),
                         findNumber,
                         findNumber,
                         calls.get(index_call).getTime());
-                break;
             }
         }
 
@@ -106,7 +106,7 @@ public class AddressBookRecentPresenter {
             for (iSearch = 0; iSearch < persons.size(); iSearch++) {
                 if (SearchByNumber.search(persons.get(iSearch).getsName(), findNumber)) {
 
-                    addListToAdapter(adapterAll,
+                    addList(adapterAll,
                             persons.get(iSearch).getnImg(),
                             "sms",
                             smss.get(index_sms).getType(),
@@ -114,7 +114,7 @@ public class AddressBookRecentPresenter {
                             findNumber,
                             smss.get(index_sms).getTime());
 
-                    addListToAdapter(adapterSMS,
+                    addList(adapterSMS,
                             persons.get(iSearch).getnImg(),
                             "sms",
                             smss.get(index_sms).getType(),
@@ -125,7 +125,7 @@ public class AddressBookRecentPresenter {
                 }
             }
             if (iSearch == persons.size()) {
-                addListToAdapter(adapterAll,
+                addList(adapterAll,
                         3,
                         "sms",
                         smss.get(index_sms).getType(),
@@ -133,14 +133,13 @@ public class AddressBookRecentPresenter {
                         findNumber,
                         smss.get(index_sms).getTime());
 
-                addListToAdapter(adapterSMS,
+                addList(adapterSMS,
                         3,
                         "sms",
                         smss.get(index_sms).getType(),
                         findNumber,
                         findNumber,
                         smss.get(index_sms).getTime());
-                break;
             }
         }
     }
@@ -156,10 +155,9 @@ public class AddressBookRecentPresenter {
     }
 
     /* Presenter Logic */
-    public void addListToAdapter(AddressBookRecentListAdapter adapter,
+    public void addList(AddressBookRecentListAdapter adapter,
                                  int nImg, String kind, String type,
                                  String name, String number, String time) {
         adapter.addItem(nImg, kind, type, name, number, time);
-
     }
 }

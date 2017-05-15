@@ -53,4 +53,6 @@ public class AddressBookRecentItem {
     public String getTime() {
         return time;
     }
+
+    public void setNumber(String number) { this.number = number; }
 }

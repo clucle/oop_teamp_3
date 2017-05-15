@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class SQLiteCall extends SQLiteOpenHelper{
     private String Table = "calltest";
@@ -28,11 +29,14 @@ public class SQLiteCall extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put("type", type);
         values.put("number", number);
-        values.put("datetime", datetime);
+        if (!datetime.equals("defaultTime")) values.put("datetime", datetime);
+        else values.put("datetime", "");
+
         this.getWritableDatabase().insert(Table, null, values);
     }
 
-    public void delete (String name) {
-        this.getWritableDatabase().delete(Table, "name=?", new String[]{name});
+    public void delete (String type, String number, String datetime) {
+        this.getWritableDatabase().delete(Table, "type=? AND number=? AND datetime=?",
+                new String[]{type, number, datetime});
     }
 }

@@ -2,9 +2,13 @@ package com.android_dev.clucle.addressbook.presenter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.android_dev.clucle.addressbook.data.SQLiteAddress;
+import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.entity.Call;
 import com.android_dev.clucle.addressbook.entity.Person;
+import com.android_dev.clucle.addressbook.utils.Calls;
 import com.android_dev.clucle.addressbook.utils.Persons;
 
 public class AddressBookPresenter{
@@ -18,7 +22,8 @@ public class AddressBookPresenter{
     }
 
     /* DB Setting */
-    private SQLiteAddress DB;
+    private SQLiteAddress DBPerson;
+    private SQLiteCall DBCall;
     private Context context;
 
     public void setContext(Context context) {
@@ -26,7 +31,12 @@ public class AddressBookPresenter{
     }
 
     public void loadDB() {
-        DB = new SQLiteAddress(context, "addressBookPersonTest.db", null, 4);
+        loadPerson();
+        loadCommunicateLog();
+    }
+
+    public void loadPerson() {
+        DBPerson = new SQLiteAddress(context, "addressBookPersonTest.db", null, 4);
 
         /* Test Data */
         /*
@@ -46,12 +56,38 @@ public class AddressBookPresenter{
         // DB.delete("name");
         Persons.getInstance().refresh();
 
-        Cursor cursor = DB.getWritableDatabase().rawQuery("SELECT * FROM persontest ORDER BY name", null);
+        Cursor cursor = DBPerson.getWritableDatabase().rawQuery("SELECT * FROM persontest ORDER BY name", null);
         if (cursor.moveToFirst()) {
             do {
                 Persons.getInstance().addPerson(new Person(cursor.getInt(0),
                         cursor.getString(1), cursor.getString(2),
                         cursor.getString(3), cursor.getString(4)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+    }
+
+    public void loadCommunicateLog() {
+        DBCall = new SQLiteCall(context, "addressBookCallsaTest.db", null, 4);
+
+        //DBCall.getWritableDatabase().execSQL("DELETE FROM calltest");
+        ///* Test Data */
+        //DBCall.insert("send", "1012341234", "defaultTime");
+
+
+        /*
+
+
+        */
+
+        // DB.delete("name");
+        Calls.getInstance().refresh();
+        Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Calls.getInstance().addCall(new Call(
+                        cursor.getString(0),
+                        cursor.getString(1), cursor.getString(2)));
             } while (cursor.moveToNext());
         }
         cursor.close();
