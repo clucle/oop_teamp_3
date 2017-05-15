@@ -1,8 +1,10 @@
 package com.android_dev.clucle.addressbook.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookKeypadPresenter;
+import com.android_dev.clucle.addressbook.view.activity.AddAddressNumberActivity;
 
 import org.w3c.dom.Text;
 
@@ -156,6 +159,24 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
     @OnClick(R.id.llayout_keypad_searched)
     public void clickFindPerson(View view) {
         keypadPresenter.setText(textKeypadNumber.getText().toString());
+    }
+
+    @OnClick(R.id.llayout_keypad_not_searched)
+    public void clickNotFindPerson(View view) {
+        Intent intent = new Intent(getActivity(), AddAddressNumberActivity.class);
+
+        intent.putExtra("sNumber", keypadPresenter.getNumber());
+
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // refresh List
+        keypadPresenter.setText(keypadPresenter.getNumber());
+
     }
 
 

@@ -100,9 +100,6 @@ public class AddressBookAddressListAdapter extends BaseAdapter {
 
         int nImg = addressBookAddressItem.getNumImg();
 
-        Log.d("[dududu]", Integer.toString(nImg));
-        Log.d("[dududu]", addressBookAddressItem.getShowText()
-        );
 
 
         if (nImg == 1) viewHolder.character.setImageResource(R.drawable.img_btn_pink_dog);

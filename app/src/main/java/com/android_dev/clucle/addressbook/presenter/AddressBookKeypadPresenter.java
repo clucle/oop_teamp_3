@@ -1,5 +1,7 @@
 package com.android_dev.clucle.addressbook.presenter;
 
+import android.util.Log;
+
 import com.android_dev.clucle.addressbook.entity.Person;
 import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.utils.SearchByNumber;
@@ -30,6 +32,9 @@ public class AddressBookKeypadPresenter {
         keyText = "";
     }
 
+    public String getNumber() {
+        return keyText;
+    }
     public void setText(String number) {
         keyText = number;
         setFormNumber();
@@ -73,7 +78,20 @@ public class AddressBookKeypadPresenter {
             return ;
         } else {
             ArrayList<Person> persons = Persons.getInstance().getPersons();
+
             if (findText.substring(0, 1).equals("0")) {
+                for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
+                    if (persons.get(iSearch).getsNumber().equals("")) continue;
+                    if (SearchByNumber.search(persons.get(iSearch).getsNumber(), findText)) {
+                        view.showFindView(
+                                persons.get(iSearch).getnImg(),
+                                persons.get(iSearch).getsName(),
+                                persons.get(iSearch).getsNumber()
+                        );
+                        return ;
+                    }
+                }
+
                 findText = findText.substring(1);
                 for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
                     if (persons.get(iSearch).getsNumber().equals("")) continue;

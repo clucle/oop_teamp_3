@@ -50,7 +50,7 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
 
 
         vp_addressbook.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-        vp_addressbook.setOffscreenPageLimit(2);
+        vp_addressbook.setOffscreenPageLimit(1);
         vp_addressbook.setCurrentItem(0);
 
         btn_keypad.setOnClickListener(movePageListener);
