@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.android_dev.clucle.addressbook.presenter.AddressBookAddressPresenter;
 import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressActivity;
 import com.android_dev.clucle.addressbook.view.activity.InfoAddressActivity;
-import com.android_dev.clucle.addressbook.view.activity.ModifyAddressActivity;
 import com.android_dev.clucle.addressbook.view.item.AddressBookAddressItem;
 
 import java.util.ArrayList;

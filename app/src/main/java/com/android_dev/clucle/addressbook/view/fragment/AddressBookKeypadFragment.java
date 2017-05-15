@@ -6,11 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookKeypadPresenter;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +29,13 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
     private Unbinder unbinder;
     private AddressBookKeypadPresenter keypadPresenter;
     @BindView(R.id.text_show_number) TextView text_show_number;
+
     @BindView(R.id.llayout_keypad_searched) LinearLayout llayoutKeypadSearched;
     @BindView(R.id.llayout_keypad_not_searched) LinearLayout llayoutKeypadNotSearched;
+
+    @BindView(R.id.image_keypad_character) ImageView imageKeypadCharacter;
+    @BindView(R.id.text_keypad_name) TextView textKeypadName;
+    @BindView(R.id.text_keypad_number) TextView textKeypadNumber;
 
 
     @Override
@@ -41,6 +49,7 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
         View view = inflater.inflate(R.layout.fragment_addressbook_keypad, container, false);
         keypadPresenter = new AddressBookKeypadPresenter(this);
         unbinder = ButterKnife.bind(this, view);
+        showBlankFindView();
         return view;
     }
 
@@ -59,13 +68,21 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
     @Override
     public void showBlankFindView() {
         llayoutKeypadSearched.setVisibility(View.GONE);
-        llayoutKeypadSearched.setVisibility(View.VISIBLE);
+        llayoutKeypadNotSearched.setVisibility(View.GONE);
     }
 
     @Override
-    public void showFindView() {
+    public void showFindView(int character, String name, String number) {
         llayoutKeypadSearched.setVisibility(View.VISIBLE);
         llayoutKeypadNotSearched.setVisibility(View.GONE);
+
+        if (character == 1)
+            imageKeypadCharacter.setImageResource(R.drawable.img_btn_pink_dog);
+        else if (character == 2)
+            imageKeypadCharacter.setImageResource(R.drawable.img_btn_blue_dog);
+
+        textKeypadName.setText(name);
+        textKeypadNumber.setText(number);
     }
 
     @Override
@@ -135,6 +152,10 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
                 break;
 
         }
+    }
+    @OnClick(R.id.llayout_keypad_searched)
+    public void clickFindPerson(View view) {
+        keypadPresenter.setText(textKeypadNumber.getText().toString());
     }
 
 

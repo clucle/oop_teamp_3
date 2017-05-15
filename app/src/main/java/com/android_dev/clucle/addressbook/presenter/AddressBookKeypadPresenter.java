@@ -1,6 +1,10 @@
 package com.android_dev.clucle.addressbook.presenter;
 
+import com.android_dev.clucle.addressbook.entity.Person;
+import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.utils.SearchByNumber;
+
+import java.util.ArrayList;
 
 public class AddressBookKeypadPresenter {
     /* Presenter Setting */
@@ -13,7 +17,7 @@ public class AddressBookKeypadPresenter {
         // 검색 안했을 시 빈 view
         void showBlankFindView();
         // 검색시 찾았을 view
-        void showFindView();
+        void showFindView(int character, String name, String number);
         // 검색시 못 찾았을 view
         void showNotFindView();
     }
@@ -26,6 +30,10 @@ public class AddressBookKeypadPresenter {
         keyText = "";
     }
 
+    public void setText(String number) {
+        keyText = number;
+        setFormNumber();
+    }
     public void addText(String text) {
         if (keyText.length() > 10) return ;
         keyText += text;
@@ -44,6 +52,7 @@ public class AddressBookKeypadPresenter {
 
     public void setFormNumber() {
         int lenText = keyText.length();
+        findNumber(keyText);
         if (lenText < 4) {
             view.showNumber(keyText);
             return ;
@@ -55,29 +64,42 @@ public class AddressBookKeypadPresenter {
         view.showNumber(keyText.substring(0,3) + "-" + keyText.substring(3, lenText - 4)
                         + "-" + keyText.substring(lenText - 4));
 
-        findNumber(keyText);
+
     }
 
-    private void findNumber(String lenText) {
-        if (keyText.equals("0")) {
-            // pass
+    private void findNumber(String findText) {
+        if (findText.equals("")) {
+            view.showBlankFindView();
+            return ;
         } else {
-            /*
-            if (lenText.substring(0, 1).equals("0")) {
-                searchedText = searchedText.substring(1);
+            ArrayList<Person> persons = Persons.getInstance().getPersons();
+            if (findText.substring(0, 1).equals("0")) {
+                findText = findText.substring(1);
                 for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
                     if (persons.get(iSearch).getsNumber().equals("")) continue;
-                    if (SearchByNumber.search(persons.get(iSearch).getsNumber(), searchedText))
-                        addSearchedItem(persons.get(iSearch).getnImg(), persons.get(iSearch).getsName());
+                    if (SearchByNumber.search(persons.get(iSearch).getsNumber(), findText)) {
+                        view.showFindView(
+                                persons.get(iSearch).getnImg(),
+                                persons.get(iSearch).getsName(),
+                                "0" + persons.get(iSearch).getsNumber()
+                        );
+                        return ;
+                    }
                 }
             } else {
                 for (int iSearch = 0; iSearch < persons.size(); iSearch++) {
                     if (persons.get(iSearch).getsNumber().equals("")) continue;
-                    if (SearchByNumber.search(searchedText, persons.get(iSearch).getsNumber()))
-                        addSearchedItem(persons.get(iSearch).getnImg(), persons.get(iSearch).getsName());
+                    if (SearchByNumber.search(findText, persons.get(iSearch).getsNumber())){
+                        view.showFindView(
+                                persons.get(iSearch).getnImg(),
+                                persons.get(iSearch).getsName(),
+                                persons.get(iSearch).getsNumber()
+                        );
+                        return ;
+                    }
                 }
-            }*/
+            }
         }
-
+        view.showNotFindView();
     }
 }
