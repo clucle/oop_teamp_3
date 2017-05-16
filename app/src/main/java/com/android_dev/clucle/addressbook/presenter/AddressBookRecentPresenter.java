@@ -19,9 +19,9 @@ public class AddressBookRecentPresenter {
     private AddressBookRecentPresenter.View view;
 
     /* ListView Setting */
-    private AddressBookRecentListAdapter adapterAll;
-    private AddressBookRecentListAdapter adapterCall;
-    private AddressBookRecentListAdapter adapterSMS;
+    private static AddressBookRecentListAdapter adapterAll;
+    private static AddressBookRecentListAdapter adapterCall;
+    private static AddressBookRecentListAdapter adapterSMS;
 
     //private ArrayList<AddressBookRecentItem> itemListAll = new ArrayList<>();
     //private ArrayList<AddressBookRecentItem> itemListCall = new ArrayList<>();
@@ -44,11 +44,15 @@ public class AddressBookRecentPresenter {
         loadItem();
     }
 
+    public static void refresh() {
+        loadItem();
+    }
+
     /* Management Data */
-    private void loadItem() {
-        //itemListAll.clear();
-        //itemListCall.clear();
-        //itemListSMS.clear();
+    private static void loadItem() {
+        adapterAll.clearList();
+        adapterCall.clearList();
+        adapterSMS.clearList();
 
 
         ArrayList<Call> calls = Calls.getInstance().getCalls();
@@ -157,7 +161,7 @@ public class AddressBookRecentPresenter {
     }
 
     /* Presenter Logic */
-    public void addList(AddressBookRecentListAdapter adapter,
+    public static void addList(AddressBookRecentListAdapter adapter,
                                  int nImg, String kind, String type,
                                  String name, String number, String time) {
         adapter.addItem(nImg, kind, type, name, number, time);

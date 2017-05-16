@@ -18,6 +18,7 @@ import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.data.SQLiteCall;
 import com.android_dev.clucle.addressbook.entity.Call;
 import com.android_dev.clucle.addressbook.presenter.AddressBookKeypadPresenter;
+import com.android_dev.clucle.addressbook.presenter.AddressBookRecentPresenter;
 import com.android_dev.clucle.addressbook.utils.Calls;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressNumberActivity;
 
@@ -171,6 +172,7 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
                         cursor.moveToLast();
                         Toast.makeText(getContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
                         Calls.getInstance().addCall(new Call(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                        AddressBookRecentPresenter.refresh();
                     }
                     cursor.close();
 

@@ -133,4 +133,8 @@ public class AddressBookRecentListAdapter extends BaseAdapter{
         notifyDataSetChanged();
 
     }
+
+    public void clearList() {
+        itemList.clear();
+    }
 }

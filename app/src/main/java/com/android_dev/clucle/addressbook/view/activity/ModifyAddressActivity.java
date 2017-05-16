@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.data.SQLiteAddress;
 import com.android_dev.clucle.addressbook.entity.Person;
+import com.android_dev.clucle.addressbook.presenter.AddressBookRecentPresenter;
 import com.android_dev.clucle.addressbook.utils.BackPressCloseHandler;
 import com.android_dev.clucle.addressbook.utils.Persons;
 
@@ -76,11 +77,16 @@ public class ModifyAddressActivity extends AppCompatActivity {
         String club = editTextClub.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
 
+        String callNum = number;
+        while (callNum.length() > 0 && callNum.substring(0,1).equals("0")) {
+            callNum = callNum.substring(1);
+        }
+
         if (name.length() == 0) {
             Toast.makeText(getApplicationContext(), "이름은 공백으로 저장 할 수 없습니다.", Toast.LENGTH_LONG).show();
             return ;
         }
-        Person newPerson = new Person(identifyCharacter, name, number, club, email);
+        Person newPerson = new Person(identifyCharacter, name, callNum, club, email);
         if (Persons.getInstance().getPersons().indexOf(newPerson) == -1 || name.equals(myName)) {
 
             // Add DataBase
@@ -88,7 +94,7 @@ public class ModifyAddressActivity extends AppCompatActivity {
             // 기존 DB에서 수정 전 제거
             DB.delete(myName);
             // DB에 수정 후 데이터 추가
-            DB.insert(identifyCharacter, name, number, club, email);
+            DB.insert(identifyCharacter, name, callNum, club, email);
 
             // Del Local Data
             Persons.getInstance().removePerson(myName);
@@ -101,6 +107,8 @@ public class ModifyAddressActivity extends AppCompatActivity {
             resultIntent.putExtra("sNumber", number);
             resultIntent.putExtra("sClub", club);
             resultIntent.putExtra("sEmail", email);
+
+            AddressBookRecentPresenter.refresh();
 
             setResult(RESULT_OK, resultIntent);
 

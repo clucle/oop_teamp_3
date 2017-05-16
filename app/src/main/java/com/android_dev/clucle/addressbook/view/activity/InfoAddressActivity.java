@@ -1,13 +1,20 @@
 package com.android_dev.clucle.addressbook.view.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.entity.Call;
+import com.android_dev.clucle.addressbook.presenter.AddressBookRecentPresenter;
+import com.android_dev.clucle.addressbook.utils.Calls;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,4 +105,34 @@ public class InfoAddressActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
+    @OnClick({R.id.btn_info_call, R.id.btn_info_sms})
+    public void onClickSendCommunicate(View view) {
+        switch (view.getId()) {
+            case R.id.btn_info_call:
+
+                String callNum = sNumber;
+                while (callNum.length() > 0 && callNum.substring(0,1).equals("0")) {
+                    callNum = callNum.substring(1);
+                }
+                SQLiteCall DBCall = new SQLiteCall(getApplicationContext(), "addressBookCallsaTest.db", null, 4);
+                DBCall.insert("send", callNum, "defaultTime");
+
+                Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+                if (cursor.getCount() > 0) {
+                    cursor.moveToLast();
+                    Toast.makeText(getApplicationContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
+                    Calls.getInstance().addCall(new Call(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                    AddressBookRecentPresenter.refresh();
+                }
+                cursor.close();
+
+                AddressBookRecentPresenter.refresh();
+
+                break;
+
+            case R.id.btn_info_sms:
+                //pass
+                break;
+        }
+    }
 }
