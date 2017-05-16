@@ -6,10 +6,13 @@ import android.util.Log;
 
 import com.android_dev.clucle.addressbook.data.SQLiteAddress;
 import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.data.SQLiteSMS;
 import com.android_dev.clucle.addressbook.entity.Call;
 import com.android_dev.clucle.addressbook.entity.Person;
+import com.android_dev.clucle.addressbook.entity.SMS;
 import com.android_dev.clucle.addressbook.utils.Calls;
 import com.android_dev.clucle.addressbook.utils.Persons;
+import com.android_dev.clucle.addressbook.utils.SMSs;
 
 public class AddressBookPresenter{
     private View view;
@@ -24,6 +27,7 @@ public class AddressBookPresenter{
     /* DB Setting */
     private SQLiteAddress DBPerson;
     private SQLiteCall DBCall;
+    private SQLiteSMS DBSMS;
     private Context context;
 
     public void setContext(Context context) {
@@ -68,17 +72,13 @@ public class AddressBookPresenter{
     }
 
     public void loadCommunicateLog() {
+
+        /* Load Call Log */
         DBCall = new SQLiteCall(context, "addressBookCallsaTest.db", null, 4);
 
         //DBCall.getWritableDatabase().execSQL("DELETE FROM calltest");
         ///* Test Data */
         //DBCall.insert("send", "1012341234", "defaultTime");
-
-
-        /*
-
-
-        */
 
         // DB.delete("name");
         Calls.getInstance().refresh();
@@ -88,6 +88,25 @@ public class AddressBookPresenter{
                 Calls.getInstance().addCall(new Call(
                         cursor.getString(0),
                         cursor.getString(1), cursor.getString(2)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        /* Load SMS Log */
+        DBSMS = new SQLiteSMS(context, "addressBookSMSTest.db", null, 4);
+
+        //DBCall.getWritableDatabase().execSQL("DELETE FROM calltest");
+        ///* Test Data */
+        //DBSMS.insert("receive", "1012341234", "defaultTime", "content1");
+
+        // DB.delete("name");
+        SMSs.getInstance().refresh();
+        cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM smstest ORDER BY datetime", null);
+        if (cursor.moveToFirst()) {
+            do {
+                SMSs.getInstance().addSMS(new SMS(
+                        cursor.getString(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3)));
             } while (cursor.moveToNext());
         }
         cursor.close();

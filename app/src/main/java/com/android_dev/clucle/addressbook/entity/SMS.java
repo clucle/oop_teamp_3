@@ -4,8 +4,9 @@ public class SMS extends CommunicateLog{
 
     private String content;
 
-    public SMS(String type, String number, String time) {
+    public SMS(String type, String number, String time, String content) {
         super(type, number, time);
+        this.content = content;
     }
 
     public void setContent(String content) {

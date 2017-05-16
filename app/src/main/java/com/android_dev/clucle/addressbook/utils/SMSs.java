@@ -21,11 +21,11 @@ public class SMSs {
 
     public void refresh() { smss.clear(); }
 
-    public void addCall(SMS sms) {
+    public void addSMS(SMS sms) {
         smss.add(sms);
     }
 
-    public void removeCall(Object sms) {
+    public void removeSMS(Object sms) {
         smss.remove(sms);
     }
 
