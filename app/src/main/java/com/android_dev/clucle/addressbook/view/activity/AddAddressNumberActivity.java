@@ -71,6 +71,10 @@ public class AddAddressNumberActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "이름은 공백으로 저장 할 수 없습니다.", Toast.LENGTH_LONG).show();
             return ;
         }
+        if (callNum.length() == 0) {
+            Toast.makeText(getApplicationContext(), "번호는 공백으로 저장 할 수 없습니다.", Toast.LENGTH_LONG).show();
+            return ;
+        }
         Person newPerson = new Person(identifyCharacter, name, callNum, club, email);
         if (Persons.getInstance().getPersons().indexOf(newPerson) == -1) {
 
