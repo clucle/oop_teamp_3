@@ -2,7 +2,10 @@ package com.android_dev.clucle.addressbook.presenter;
 
 import android.util.Log;
 
+import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.entity.Call;
 import com.android_dev.clucle.addressbook.entity.Person;
+import com.android_dev.clucle.addressbook.utils.Calls;
 import com.android_dev.clucle.addressbook.utils.Persons;
 import com.android_dev.clucle.addressbook.utils.SearchByNumber;
 
@@ -119,5 +122,17 @@ public class AddressBookKeypadPresenter {
             }
         }
         view.showNotFindView();
+    }
+
+    public String sendCall() {
+        String callNum = keyText;
+        while (callNum.length() > 0 && callNum.substring(0,1).equals("0")) {
+            callNum = callNum.substring(1);
+        }
+        if (callNum.length() > 0) {
+
+            return callNum;
+        }
+        return null;
     }
 }

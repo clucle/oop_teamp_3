@@ -1,6 +1,7 @@
 package com.android_dev.clucle.addressbook.view.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
+import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.entity.Call;
 import com.android_dev.clucle.addressbook.presenter.AddressBookKeypadPresenter;
+import com.android_dev.clucle.addressbook.utils.Calls;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressNumberActivity;
 
 import org.w3c.dom.Text;
@@ -54,6 +59,16 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
         unbinder = ButterKnife.bind(this, view);
         showBlankFindView();
         return view;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // refresh List
+        keypadPresenter.setText(keypadPresenter.getNumber());
+
     }
 
     @Override
@@ -145,7 +160,21 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
     public void clickTool(View view) {
         switch (view.getId()) {
             case R.id.btn_keypad_call:
-                // pass
+                if (keypadPresenter.sendCall() != null) {
+                    // Add DataBase
+                    String number = keypadPresenter.sendCall();
+                    SQLiteCall DBCall = new SQLiteCall(getContext(), "addressBookCallsaTest.db", null, 4);
+                    DBCall.insert("send", number, "defaultTime");
+
+                    Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToLast();
+                        Toast.makeText(getContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
+                        Calls.getInstance().addCall(new Call(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                    }
+                    cursor.close();
+
+                }
                 break;
             case R.id.btn_keypad_sms:
                 // pass
@@ -170,14 +199,6 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
         startActivityForResult(intent, 1);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // refresh List
-        keypadPresenter.setText(keypadPresenter.getNumber());
-
-    }
 
 
 }
