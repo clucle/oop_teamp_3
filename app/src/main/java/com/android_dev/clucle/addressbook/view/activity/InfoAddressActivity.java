@@ -1,20 +1,27 @@
 package com.android_dev.clucle.addressbook.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.data.SQLiteSMS;
 import com.android_dev.clucle.addressbook.entity.Call;
+import com.android_dev.clucle.addressbook.entity.SMS;
 import com.android_dev.clucle.addressbook.presenter.AddressBookRecentPresenter;
 import com.android_dev.clucle.addressbook.utils.Calls;
+import com.android_dev.clucle.addressbook.utils.SMSs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,31 +114,76 @@ public class InfoAddressActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_info_call, R.id.btn_info_sms})
     public void onClickSendCommunicate(View view) {
+        String callNum = sNumber;
         switch (view.getId()) {
             case R.id.btn_info_call:
 
-                String callNum = sNumber;
                 while (callNum.length() > 0 && callNum.substring(0,1).equals("0")) {
                     callNum = callNum.substring(1);
                 }
-                SQLiteCall DBCall = new SQLiteCall(getApplicationContext(), "addressBookCallsaTest.db", null, 4);
-                DBCall.insert("send", callNum, "defaultTime");
+                if (callNum.length() > 0) {
+                    SQLiteCall DBCall = new SQLiteCall(getApplicationContext(), "addressBookCallsaTest.db", null, 4);
+                    DBCall.insert("send", callNum, "defaultTime");
 
-                Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
-                if (cursor.getCount() > 0) {
-                    cursor.moveToLast();
-                    Toast.makeText(getApplicationContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
-                    Calls.getInstance().addCall(new Call(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                    Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToLast();
+                        Toast.makeText(getApplicationContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
+                        Calls.getInstance().addCall(new Call(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                        AddressBookRecentPresenter.refresh();
+                    }
+                    cursor.close();
+
                     AddressBookRecentPresenter.refresh();
                 }
-                cursor.close();
 
-                AddressBookRecentPresenter.refresh();
 
                 break;
 
             case R.id.btn_info_sms:
-                //pass
+
+                while (callNum.length() > 0 && callNum.substring(0,1).equals("0")) {
+                    callNum = callNum.substring(1);
+                }
+                if (callNum.length() > 0) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("문자 보내기");
+                    final EditText input = new EditText(this);
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+
+                    builder.setPositiveButton("보내기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            SQLiteSMS DBSMS = new SQLiteSMS(getApplicationContext(), "addressBookSMSTest.db", null, 4);
+                            String myCallNum = sNumber;
+
+                            while (myCallNum.length() > 0 && myCallNum.substring(0,1).equals("0")) {
+                                myCallNum = myCallNum.substring(1);
+                            }
+
+                            DBSMS.insert("send", myCallNum, "defaultTime", input.getText().toString());
+
+                            Cursor cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM smstest ORDER BY datetime", null);
+                            if (cursor.getCount() > 0) {
+                                cursor.moveToLast();
+                                Toast.makeText(getApplicationContext(), "Send to" + cursor.getString(1), Toast.LENGTH_LONG).show();
+                                SMSs.getInstance().addSMS(new SMS(cursor.getString(0), cursor.getString(1),
+                                        cursor.getString(2), cursor.getString(3)));
+                                AddressBookRecentPresenter.refresh();
+                            }
+                            cursor.close();
+
+
+                        }
+                    });
+
+                    builder.setNegativeButton("취소", null);
+                    builder.show();
+                }
+
+
                 break;
         }
     }

@@ -110,7 +110,7 @@ public class AddressBookRecentPresenter {
 
             int iSearch;
             for (iSearch = 0; iSearch < persons.size(); iSearch++) {
-                if (SearchByNumber.search(persons.get(iSearch).getsName(), findNumber)) {
+                if (SearchByNumber.search(persons.get(iSearch).getsNumber(), findNumber)) {
 
                     addList(adapterAll,
                             persons.get(iSearch).getnImg(),

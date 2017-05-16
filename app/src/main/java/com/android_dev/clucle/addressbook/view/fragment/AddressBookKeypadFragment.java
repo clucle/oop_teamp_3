@@ -1,14 +1,18 @@
 package com.android_dev.clucle.addressbook.view.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,10 +20,13 @@ import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.data.SQLiteCall;
+import com.android_dev.clucle.addressbook.data.SQLiteSMS;
 import com.android_dev.clucle.addressbook.entity.Call;
+import com.android_dev.clucle.addressbook.entity.SMS;
 import com.android_dev.clucle.addressbook.presenter.AddressBookKeypadPresenter;
 import com.android_dev.clucle.addressbook.presenter.AddressBookRecentPresenter;
 import com.android_dev.clucle.addressbook.utils.Calls;
+import com.android_dev.clucle.addressbook.utils.SMSs;
 import com.android_dev.clucle.addressbook.view.activity.AddAddressNumberActivity;
 
 import org.w3c.dom.Text;
@@ -178,8 +185,41 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
 
                 }
                 break;
+
             case R.id.btn_keypad_sms:
-                // pass
+                if (keypadPresenter.sendCall() != null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("문자 보내기");
+                    final EditText input = new EditText(getContext());
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+
+                    builder.setPositiveButton("보내기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            String number = keypadPresenter.sendCall();
+                            SQLiteSMS DBSMS = new SQLiteSMS(getContext(), "addressBookSMSTest.db", null, 4);
+                            DBSMS.insert("send", number, "defaultTime", input.getText().toString());
+
+                            Cursor cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM smstest ORDER BY datetime", null);
+                            if (cursor.getCount() > 0) {
+                                cursor.moveToLast();
+                                Toast.makeText(getContext(), "Send to" + cursor.getString(1), Toast.LENGTH_LONG).show();
+                                SMSs.getInstance().addSMS(new SMS(cursor.getString(0), cursor.getString(1),
+                                        cursor.getString(2), cursor.getString(3)));
+                                AddressBookRecentPresenter.refresh();
+                            }
+                            cursor.close();
+
+
+                        }
+                    });
+
+                    builder.setNegativeButton("취소", null);
+                    builder.show();
+                }
+
                 break;
             case R.id.btn_keypad_erase:
                 keypadPresenter.eraseText();

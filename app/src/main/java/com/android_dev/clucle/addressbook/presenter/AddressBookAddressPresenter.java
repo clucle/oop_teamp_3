@@ -174,6 +174,7 @@ public class AddressBookAddressPresenter {
             DB.delete(checkedItem.getShowText());
 
         }
+        AddressBookRecentPresenter.refresh();
     }
 
     public void savePerson() {
@@ -182,5 +183,6 @@ public class AddressBookAddressPresenter {
 
         adapter.notifyDataSetChanged();
         adapterSearched.notifyDataSetChanged();
+
     }
 }
