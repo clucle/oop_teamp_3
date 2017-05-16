@@ -23,6 +23,8 @@ public class AddressBookRecentPresenter {
     private static AddressBookRecentListAdapter adapterCall;
     private static AddressBookRecentListAdapter adapterSMS;
 
+    private int currentViewType;
+
     //private ArrayList<AddressBookRecentItem> itemListAll = new ArrayList<>();
     //private ArrayList<AddressBookRecentItem> itemListCall = new ArrayList<>();
     //private ArrayList<AddressBookRecentItem> itemListSMS = new ArrayList<>();
@@ -165,6 +167,7 @@ public class AddressBookRecentPresenter {
 
     /* Fragment Method */
     public void showAll() {
+        currentViewType = 0;
         view.showAdapter(adapterAll);
     }
 
@@ -173,5 +176,22 @@ public class AddressBookRecentPresenter {
                                  int nImg, String kind, String type,
                                  String name, String number, String time, String content) {
         adapter.addItem(nImg, kind, type, name, number, time, content);
+    }
+
+    public void setViewType(int position) {
+        if (currentViewType == position) return ;
+        currentViewType = position;
+        switch (currentViewType) {
+            case 0:
+                view.showAdapter(adapterAll);
+                break;
+            case 1:
+                view.showAdapter(adapterCall);
+                break;
+            case 2:
+                view.showAdapter(adapterSMS);
+                break;
+
+        }
     }
 }

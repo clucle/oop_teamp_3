@@ -41,7 +41,7 @@ public class AddressBookActivity extends AppCompatActivity implements AddressBoo
         ButterKnife.bind(this);
 
         /* Show Logo Screen */
-        // startActivity(new Intent(this, SplashActivity.class));
+         startActivity(new Intent(this, SplashActivity.class));
 
         /* accept Presenter */
         addressBookPresenter = new AddressBookPresenter(this);

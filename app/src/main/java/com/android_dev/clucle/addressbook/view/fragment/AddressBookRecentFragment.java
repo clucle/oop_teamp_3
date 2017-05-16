@@ -1,15 +1,17 @@
 package com.android_dev.clucle.addressbook.view.fragment;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.presenter.AddressBookRecentPresenter;
@@ -24,7 +26,7 @@ public class AddressBookRecentFragment extends Fragment implements AddressBookRe
     private Unbinder unbinder;
     private AddressBookRecentPresenter recentPresenter;
     @BindView(R.id.listview_recent) ListView listViewRecent;
-
+    @BindView(R.id.spinner_recent) Spinner spinnerRecent;
     public AddressBookRecentFragment() {
         super();
     }
@@ -45,6 +47,21 @@ public class AddressBookRecentFragment extends Fragment implements AddressBookRe
         recentPresenter = new AddressBookRecentPresenter(this);
 
         unbinder = ButterKnife.bind(this, view);
+
+        spinnerRecent.getBackground().setColorFilter(Color.parseColor("#212121"), PorterDuff.Mode.SRC_ATOP);
+        spinnerRecent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#212121"));
+                ((TextView) parent.getChildAt(0)).setTextSize(16);
+                recentPresenter.setViewType(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         recentPresenter.showAll();
 

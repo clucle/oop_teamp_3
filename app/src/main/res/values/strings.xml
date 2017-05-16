@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AddressBook</string>
+    <string-array name="log_arrays">
+        <item>전체</item>
+        <item>전화</item>
+        <item>메세지</item>
+    </string-array>
 </resources>
