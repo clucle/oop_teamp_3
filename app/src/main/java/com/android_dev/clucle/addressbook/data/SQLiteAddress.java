@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteAddress extends SQLiteOpenHelper{
-    private String Table = "persontest";
+    private String Table = "person";
 
     public SQLiteAddress(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

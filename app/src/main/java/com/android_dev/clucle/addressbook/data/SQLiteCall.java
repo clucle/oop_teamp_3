@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class SQLiteCall extends SQLiteOpenHelper{
-    private String Table = "calltest";
+    private String Table = "call";
 
     public SQLiteCall(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

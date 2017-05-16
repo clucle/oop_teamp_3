@@ -90,7 +90,7 @@ public class ModifyAddressActivity extends AppCompatActivity {
         if (Persons.getInstance().getPersons().indexOf(newPerson) == -1 || name.equals(myName)) {
 
             // Add DataBase
-            SQLiteAddress DB = new SQLiteAddress(getApplicationContext(), "addressBookPersonTest.db", null, 4);
+            SQLiteAddress DB = new SQLiteAddress(getApplicationContext(), "addressBookPerson.db", null, 4);
             // 기존 DB에서 수정 전 제거
             DB.delete(myName);
             // DB에 수정 후 데이터 추가

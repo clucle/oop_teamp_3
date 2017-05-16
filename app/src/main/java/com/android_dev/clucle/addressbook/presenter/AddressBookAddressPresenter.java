@@ -170,7 +170,7 @@ public class AddressBookAddressPresenter {
             itemSearchedList.remove(checkedItem);
             Persons.getInstance().removePerson(checkedItem.getShowText());
 
-            SQLiteAddress DB = new SQLiteAddress(context, "addressBookPersonTest.db", null, 4);
+            SQLiteAddress DB = new SQLiteAddress(context, "addressBookPerson.db", null, 4);
             DB.delete(checkedItem.getShowText());
 
         }

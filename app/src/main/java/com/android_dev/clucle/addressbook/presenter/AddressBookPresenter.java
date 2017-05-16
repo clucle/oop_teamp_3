@@ -40,7 +40,7 @@ public class AddressBookPresenter{
     }
 
     public void loadPerson() {
-        DBPerson = new SQLiteAddress(context, "addressBookPersonTest.db", null, 4);
+        DBPerson = new SQLiteAddress(context, "addressBookPerson.db", null, 4);
 
         /* Test Data */
         /*
@@ -60,7 +60,7 @@ public class AddressBookPresenter{
         // DB.delete("name");
         Persons.getInstance().refresh();
 
-        Cursor cursor = DBPerson.getWritableDatabase().rawQuery("SELECT * FROM persontest ORDER BY name", null);
+        Cursor cursor = DBPerson.getWritableDatabase().rawQuery("SELECT * FROM person ORDER BY name", null);
         if (cursor.moveToFirst()) {
             do {
                 Persons.getInstance().addPerson(new Person(cursor.getInt(0),
@@ -74,7 +74,7 @@ public class AddressBookPresenter{
     public void loadCommunicateLog() {
 
         /* Load Call Log */
-        DBCall = new SQLiteCall(context, "addressBookCallsaTest.db", null, 4);
+        DBCall = new SQLiteCall(context, "addressBookCall.db", null, 4);
 
         //DBCall.getWritableDatabase().execSQL("DELETE FROM calltest");
         ///* Test Data */
@@ -82,7 +82,7 @@ public class AddressBookPresenter{
 
         // DB.delete("name");
         Calls.getInstance().refresh();
-        Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+        Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM call ORDER BY datetime", null);
         if (cursor.moveToFirst()) {
             do {
                 Calls.getInstance().addCall(new Call(
@@ -93,7 +93,7 @@ public class AddressBookPresenter{
         cursor.close();
 
         /* Load SMS Log */
-        DBSMS = new SQLiteSMS(context, "addressBookSMSTest.db", null, 4);
+        DBSMS = new SQLiteSMS(context, "addressBookSMS.db", null, 4);
 
         //DBCall.getWritableDatabase().execSQL("DELETE FROM calltest");
         ///* Test Data */
@@ -101,7 +101,7 @@ public class AddressBookPresenter{
 
         // DB.delete("name");
         SMSs.getInstance().refresh();
-        cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM smstest ORDER BY datetime", null);
+        cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM sms ORDER BY datetime", null);
         if (cursor.moveToFirst()) {
             do {
                 SMSs.getInstance().addSMS(new SMS(

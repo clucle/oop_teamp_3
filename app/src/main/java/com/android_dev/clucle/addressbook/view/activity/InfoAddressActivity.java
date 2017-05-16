@@ -122,10 +122,10 @@ public class InfoAddressActivity extends AppCompatActivity {
                     callNum = callNum.substring(1);
                 }
                 if (callNum.length() > 0) {
-                    SQLiteCall DBCall = new SQLiteCall(getApplicationContext(), "addressBookCallsaTest.db", null, 4);
+                    SQLiteCall DBCall = new SQLiteCall(getApplicationContext(), "addressBookCall.db", null, 4);
                     DBCall.insert("send", callNum, "defaultTime");
 
-                    Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+                    Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM call ORDER BY datetime", null);
                     if (cursor.getCount() > 0) {
                         cursor.moveToLast();
                         Toast.makeText(getApplicationContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
@@ -156,7 +156,7 @@ public class InfoAddressActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            SQLiteSMS DBSMS = new SQLiteSMS(getApplicationContext(), "addressBookSMSTest.db", null, 4);
+                            SQLiteSMS DBSMS = new SQLiteSMS(getApplicationContext(), "addressBookSMS.db", null, 4);
                             String myCallNum = sNumber;
 
                             while (myCallNum.length() > 0 && myCallNum.substring(0,1).equals("0")) {
@@ -165,7 +165,7 @@ public class InfoAddressActivity extends AppCompatActivity {
 
                             DBSMS.insert("send", myCallNum, "defaultTime", input.getText().toString());
 
-                            Cursor cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM smstest ORDER BY datetime", null);
+                            Cursor cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM sms ORDER BY datetime", null);
                             if (cursor.getCount() > 0) {
                                 cursor.moveToLast();
                                 Toast.makeText(getApplicationContext(), "Send to" + cursor.getString(1), Toast.LENGTH_LONG).show();

@@ -171,10 +171,10 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
                 if (keypadPresenter.sendCall() != null) {
                     // Add DataBase
                     String number = keypadPresenter.sendCall();
-                    SQLiteCall DBCall = new SQLiteCall(getContext(), "addressBookCallsaTest.db", null, 4);
+                    SQLiteCall DBCall = new SQLiteCall(getContext(), "addressBookCall.db", null, 4);
                     DBCall.insert("send", number, "defaultTime");
 
-                    Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM calltest ORDER BY datetime", null);
+                    Cursor cursor = DBCall.getWritableDatabase().rawQuery("SELECT * FROM call ORDER BY datetime", null);
                     if (cursor.getCount() > 0) {
                         cursor.moveToLast();
                         Toast.makeText(getContext(), "Call to" + cursor.getString(1), Toast.LENGTH_LONG).show();
@@ -199,10 +199,10 @@ public class AddressBookKeypadFragment extends Fragment implements AddressBookKe
                         public void onClick(DialogInterface dialog, int which) {
 
                             String number = keypadPresenter.sendCall();
-                            SQLiteSMS DBSMS = new SQLiteSMS(getContext(), "addressBookSMSTest.db", null, 4);
+                            SQLiteSMS DBSMS = new SQLiteSMS(getContext(), "addressBookSMS.db", null, 4);
                             DBSMS.insert("send", number, "defaultTime", input.getText().toString());
 
-                            Cursor cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM smstest ORDER BY datetime", null);
+                            Cursor cursor = DBSMS.getWritableDatabase().rawQuery("SELECT * FROM sms ORDER BY datetime", null);
                             if (cursor.getCount() > 0) {
                                 cursor.moveToLast();
                                 Toast.makeText(getContext(), "Send to" + cursor.getString(1), Toast.LENGTH_LONG).show();

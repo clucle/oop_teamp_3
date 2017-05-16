@@ -75,7 +75,7 @@ public class AddAddressNumberActivity extends AppCompatActivity {
         if (Persons.getInstance().getPersons().indexOf(newPerson) == -1) {
 
             // Add DataBase
-            SQLiteAddress DB = new SQLiteAddress(getApplicationContext(), "addressBookPersonTest.db", null, 4);
+            SQLiteAddress DB = new SQLiteAddress(getApplicationContext(), "addressBookPerson.db", null, 4);
             DB.insert(identifyCharacter, name, callNum, club, email);
 
             // Add Local Data
