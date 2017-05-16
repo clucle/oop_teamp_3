@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android_dev.clucle.addressbook.R;
 import com.android_dev.clucle.addressbook.view.item.AddressBookRecentItem;
@@ -77,7 +78,7 @@ public class AddressBookRecentListAdapter extends BaseAdapter{
         }
 
 
-        AddressBookRecentItem recentItem = itemList.get(position);
+        final AddressBookRecentItem recentItem = itemList.get(position);
 
         int nImg = recentItem.getNumImg();
         if (nImg == 1) viewHolder.imgCharacter.setImageResource(R.drawable.img_btn_pink_dog);
@@ -96,6 +97,14 @@ public class AddressBookRecentListAdapter extends BaseAdapter{
         viewHolder.textNumber.setText(recentItem.getNumber());
         viewHolder.textTime.setText(recentItem.getTime());
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!recentItem.getContent().equals(""))
+                    Toast.makeText(context, recentItem.getContent(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return convertView;
     }
 
@@ -109,8 +118,8 @@ public class AddressBookRecentListAdapter extends BaseAdapter{
         protected TextView textTime;
     }
 
-    public void addItem(int numImg, String kind, String type, String name, String number, String time) {
-        AddressBookRecentItem item = new AddressBookRecentItem(numImg, kind, type, name, number, time);
+    public void addItem(int numImg, String kind, String type, String name, String number, String time, String content) {
+        AddressBookRecentItem item = new AddressBookRecentItem(numImg, kind, type, name, number, time, content);
         if (item.getNumber().substring(0, 2).equals("10")) item.setNumber("0" + item.getNumber());
         itemList.add(item);
 

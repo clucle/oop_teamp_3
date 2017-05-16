@@ -7,15 +7,17 @@ public class AddressBookRecentItem {
     private String name;
     private String number;
     private String time;
+    private String content;
 
     public AddressBookRecentItem(int numImg, String kind, String type,
-                                 String name, String number, String time) {
+                                 String name, String number, String time, String content) {
         this.numImg = numImg;
         this.kind = kind;
         this.type = type;
         this.name = name;
         this.number = number;
         this.time = time;
+        this.content = content;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class AddressBookRecentItem {
         if (!name.equals(itemObj.getName())) return false;
         if (!number.equals(itemObj.getNumber())) return false;
         if (!time.equals(itemObj.getTime())) return false;
+        if (!content.equals(itemObj.getContent())) return false;
 
         return true;
     }
@@ -53,6 +56,7 @@ public class AddressBookRecentItem {
     public String getTime() {
         return time;
     }
+    public String getContent() { return content;}
 
     public void setNumber(String number) { this.number = number; }
 }

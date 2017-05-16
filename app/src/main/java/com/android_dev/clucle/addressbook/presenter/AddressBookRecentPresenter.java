@@ -73,7 +73,8 @@ public class AddressBookRecentPresenter {
                             calls.get(index_call).getType(),
                             persons.get(iSearch).getsName(),
                             findNumber,
-                            calls.get(index_call).getTime());
+                            calls.get(index_call).getTime(),
+                            "");
 
                     addList(adapterCall,
                             persons.get(iSearch).getnImg(),
@@ -81,7 +82,8 @@ public class AddressBookRecentPresenter {
                             calls.get(index_call).getType(),
                             persons.get(iSearch).getsName(),
                             findNumber,
-                            calls.get(index_call).getTime());
+                            calls.get(index_call).getTime(),
+                            "");
                     break;
                 }
             }
@@ -92,7 +94,8 @@ public class AddressBookRecentPresenter {
                         calls.get(index_call).getType(),
                         findNumber,
                         findNumber,
-                        calls.get(index_call).getTime());
+                        calls.get(index_call).getTime(),
+                        "");
 
                 addList(adapterCall,
                         3,
@@ -100,7 +103,8 @@ public class AddressBookRecentPresenter {
                         calls.get(index_call).getType(),
                         findNumber,
                         findNumber,
-                        calls.get(index_call).getTime());
+                        calls.get(index_call).getTime(),
+                        "");
             }
         }
 
@@ -118,7 +122,8 @@ public class AddressBookRecentPresenter {
                             smss.get(index_sms).getType(),
                             persons.get(iSearch).getsName(),
                             findNumber,
-                            smss.get(index_sms).getTime());
+                            smss.get(index_sms).getTime(),
+                            smss.get(index_sms).getContent());
 
                     addList(adapterSMS,
                             persons.get(iSearch).getnImg(),
@@ -126,7 +131,8 @@ public class AddressBookRecentPresenter {
                             smss.get(index_sms).getType(),
                             persons.get(iSearch).getsName(),
                             findNumber,
-                            smss.get(index_sms).getTime());
+                            smss.get(index_sms).getTime(),
+                            smss.get(index_sms).getContent());
                     break;
                 }
             }
@@ -137,7 +143,8 @@ public class AddressBookRecentPresenter {
                         smss.get(index_sms).getType(),
                         findNumber,
                         findNumber,
-                        smss.get(index_sms).getTime());
+                        smss.get(index_sms).getTime(),
+                        smss.get(index_sms).getContent());
 
                 addList(adapterSMS,
                         3,
@@ -145,7 +152,8 @@ public class AddressBookRecentPresenter {
                         smss.get(index_sms).getType(),
                         findNumber,
                         findNumber,
-                        smss.get(index_sms).getTime());
+                        smss.get(index_sms).getTime(),
+                        smss.get(index_sms).getContent());
             }
         }
     }
@@ -163,7 +171,7 @@ public class AddressBookRecentPresenter {
     /* Presenter Logic */
     public static void addList(AddressBookRecentListAdapter adapter,
                                  int nImg, String kind, String type,
-                                 String name, String number, String time) {
-        adapter.addItem(nImg, kind, type, name, number, time);
+                                 String name, String number, String time, String content) {
+        adapter.addItem(nImg, kind, type, name, number, time, content);
     }
 }
