@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AddressBook</string>
+    <string name="app_name">전화번호부</string>
     <string-array name="log_arrays">
         <item>전체</item>
         <item>전화</item>
