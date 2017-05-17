@@ -73,3 +73,8 @@ Add와 Modify는 같은 화면을 가지고 있지만 Add는 단지 더하고 Modify는 원래 있던 데
 화면의 아이콘을 클릭 하는 것으로 분홍색, 파란색을 바꿀 수 있습니다.
 
 ![AddModify](./readme_img/add_modify.png)
+
+
+## UML
+
+![UML](./readme_img/diagram.png)
